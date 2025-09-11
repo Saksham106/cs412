@@ -1,0 +1,21 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+  <h1>"All" Quotes (only the best ones)</h1>
+
+  <h2>Quotes</h2>
+  <ul>
+    {% for q in quotes %}
+      <li>“{{ q }}”</li>
+    {% empty %}
+      <li>No quotes yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Images</h2>
+  {% for u in all_images %}
+    <img src="{{ u }}" style="max-width: 200px; margin: 6px;">
+  {% empty %}
+    <p>No images yet.</p>
+  {% endfor %}
+{% endblock %}
