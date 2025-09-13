@@ -1,3 +1,7 @@
+# File: urls.py
+# Author: Saksham Goel (saksham@bu.edu), 09/09/2025
+# Description: URL configuration for cs412 project
+
 """
 URL configuration for cs412 project.
 

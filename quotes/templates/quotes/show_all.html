@@ -1,10 +1,16 @@
+<!-- File: show_all.html
+     Author: Saksham Goel (saksham@bu.edu), 2025-09-10
+     Description: Lists all quotes and all images from hard-coded data. -->
+
 {% extends 'quotes/base.html' %}
 
 {% block content %}
   <h1>"All" Quotes (only the best ones)</h1>
 
   <h2>Quotes</h2>
-  <ul>
+
+  <!-- Purpose: iterate over all quotes passed by the view and list them -->
+  <ul class="quotes-list">
     {% for q in quotes %}
       <li>“{{ q }}”</li>
     {% empty %}
@@ -13,6 +19,7 @@
   </ul>
 
   <h2>Images</h2>
+  <!-- Purpose: grid list that uses horizontal space efficiently -->
   <ul class="images-list">
     {% for u in all_images %}
       <li><img src="{{ u }}" alt="Socrates"></li>

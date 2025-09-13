@@ -1,20 +1,29 @@
+<!-- File: base.html
+     Author: Saksham Goel (saksham@bu.edu), 2025-09-10
+     Description: Base template for the quotes app. Provides site-wide
+     navigation, container layout, and footer. All pages extend this file. -->
+
 {% load static %}
 <html>
   <head>
     <title>Quotes</title>
+    <!-- Link project-level stylesheet -->
     <link rel="stylesheet" href="{% static 'quotes_styles.css' %}">
   </head>
   <body>
+    <!-- Purpose: site-wide navigation -->
     <nav>
       <a href="{% url 'quote' %}">Quote of the Day</a> |
       <a href="{% url 'show_all' %}">Show All</a> |
       <a href="{% url 'about' %}">About</a>
     </nav>
 
+    <!-- Purpose: main content area that child templates fill -->
     <main class="container">
       {% block content %}{% endblock %}
     </main>
 
+    <!-- Purpose: simple footer -->
     <footer>Socrates Quotes by Saksham CS412</footer>
   </body>
 </html>

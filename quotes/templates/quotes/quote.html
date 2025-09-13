@@ -1,7 +1,15 @@
+<!-- File: quote.html
+     Author: Saksham Goel (saksham@bu.edu), 2025-09-10
+     Description: Displays one random Socrates quote with a random image. -->
+
 {% extends 'quotes/base.html' %}
 
 {% block content %}
   <h1>Quote of the Day - Socrates</h1>
+
+  <!-- Purpose: show a single randomly-selected quote from the view context -->
   <blockquote class="quote-text">“{{ quote }}”</blockquote>
+  
+  <!-- Purpose: show a single randomly-selected image from the view context -->
   <img class="quote-img" src="{{ single_image }}" alt="Socrates">
 {% endblock %}
