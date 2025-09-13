@@ -13,9 +13,11 @@
   </ul>
 
   <h2>Images</h2>
-  {% for u in all_images %}
-    <img src="{{ u }}" style="max-width: 200px; margin: 6px;">
-  {% empty %}
-    <p>No images yet.</p>
-  {% endfor %}
+  <ul class="images-list">
+    {% for u in all_images %}
+      <li><img src="{{ u }}" alt="Socrates"></li>
+    {% empty %}
+      <li>No images yet.</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

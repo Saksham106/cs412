@@ -1,5 +1,13 @@
+# File: views.py
+# Author: Saksham Goel (saksham@bu.edu), 09/12/2025
+# Description: Views for the quotes Django app. Provides pages for displaying
+# a random Socrates quote with an image, showing all quotes and images, and
+# an about page describing the project.
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+
+"""Views for the quotes app."""
 
 import time
 import random
@@ -8,7 +16,7 @@ QUOTES = [
     "The only true wisdom is in knowing you know nothing.",
     "The unexamined life is not worth living.",
     "The only good is knowledge, and the only evil is ignorance.",
-    "Be slow to fall into friendship; but when thou art in, continu e firm and constant.",
+    "Be slow to fall into friendship; but when thou art in, continue firm and constant.",
     "To find yourself, think for yourself.",
     "Let him that would move the world first move himself.",
     "I cannot teach anybody anything. I can only make them think",

@@ -1,0 +1,114 @@
+/* ===== Page layout (sticky footer) ===== */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #fafafa;
+  color: #222;
+}
+
+/* ===== Nav ===== */
+nav {
+  background: #333;
+  padding: 0.8rem;
+  text-align: center;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: 500;
+}
+nav a:hover { text-decoration: underline; }
+
+/* ===== Content wrapper ===== */
+.container {
+  flex: 1;
+  max-width: 60rem;   /* ~960px, responsive-friendly */
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* ===== Headings ===== */
+h1, h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ===== Card (optional wrapper) ===== */
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* ===== Quote (random page) ===== */
+blockquote {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);  /* bigger, scales on wide screens */
+  font-style: italic;
+  margin: 1rem auto 2rem;
+  line-height: 1.6;
+  color: #111;
+  text-align: center;
+  max-width: 50ch;                        /* keeps lines a comfortable width */
+}
+
+/* Center & size the hero image (random page) */
+img.quote-img {
+  display: block;
+  margin: 0 auto;
+  width: clamp(12rem, 30vw, 22rem);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* ===== Generic images (fallback) ===== */
+img {
+  display: block;
+  margin: 0.75rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ===== "Show All" images as a grid list ===== */
+.images-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.images-list li {
+  display: flex;
+  justify-content: center;
+}
+.images-list img {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+/* ===== Footer ===== */
+footer {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+}
