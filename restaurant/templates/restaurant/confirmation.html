@@ -1,0 +1,33 @@
+{% extends "restaurant/base.html" %}
+{% block title %}Confirmation — My Restaurant{% endblock %}
+
+{% block content %}
+  <h2>Confirmation</h2>
+
+  {% if empty_order %}
+    <p><strong>No items selected.</strong></p>
+    <p><a href="{% url 'order' %}">Back to Order Page</a></p>
+  {% else %}
+    <p>Thank you for your order!</p>
+    <p><strong>Your order will be ready at:</strong> {{ ready_at }}</p>
+
+    <h3>Your order is confirmed:</h3>
+    <ul>
+      {% for it in items %}
+        <li>{{ it.label }} — ${{ it.price }}</li>
+      {% endfor %}
+    </ul>
+
+    <p><strong>Total:</strong> ${{ total }}</p>
+
+    <h3>Customer Information:</h3>
+    <p>Name: {{ customer.name }}</p>
+    <p>Phone: {{ customer.phone }}</p>
+    <p>Email: {{ customer.email }}</p>
+    {% if customer.instructions %}
+      <p>Special Instructions: {{ customer.instructions }}</p>
+    {% endif %}
+
+    <p><a href="{% url 'order' %}">Place another order</a></p>
+  {% endif %}
+{% endblock %}

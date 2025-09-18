@@ -1,0 +1,56 @@
+{% extends "restaurant/base.html" %}
+{% block title %}Order — My Restaurant{% endblock %}
+
+{% block content %}
+  <h2>Place an Order</h2>
+
+  <form action="{% url 'confirmation' %}" method="post">
+    {% csrf_token %}
+
+    <h3>Select your items:</h3>
+    {% for id, label, price in menu %}
+      <div>
+        <label>
+          <input type="checkbox" name="items" value="{{ id }}">
+          {{ label }} ${{ price }}
+        </label>
+      </div>
+    {% endfor %}
+
+    <h3 style="margin-top:1rem;">Today's Special:</h3>
+    <div>
+      <label>
+        <input type="checkbox" name="items" value="daily">
+        {{ daily.name }} ${{ daily.price }}
+      </label>
+      <div style="font-size:.9rem; color:#555; margin-left:1.4rem;">
+        {{ daily.desc }}
+      </div>
+      <input type="hidden" name="daily_id" value="{{ daily.id }}">
+    </div>
+
+    <h3 style="margin-top:1rem;">Special Instructions:</h3>
+    <div>
+      <label for="instructions">Please share any special instructions:</label><br>
+      <textarea id="instructions" name="instructions" rows="3" cols="50"></textarea>
+    </div>
+
+    <h3 style="margin-top:1rem;">Customer Information:</h3>
+    <div>
+      <label for="cust_name">Name:</label><br>
+      <input type="text" id="cust_name" name="customer_name" required>
+    </div>
+    <div>
+      <label for="cust_phone">Phone:</label><br>
+      <input type="tel" id="cust_phone" name="customer_phone" required>
+    </div>
+    <div>
+      <label for="cust_email">Email:</label><br>
+      <input type="email" id="cust_email" name="customer_email" required>
+    </div>
+
+    <div style="margin-top:1rem;">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+{% endblock %}

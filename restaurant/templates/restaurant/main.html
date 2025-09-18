@@ -1,0 +1,25 @@
+{% extends "restaurant/base.html" %}
+{% block title %}Welcome — My Restaurant{% endblock %}
+
+{% block content %}
+  <h2>Welcome!</h2>
+  <div class="card">
+    <p>We're a cozy place serving fresh, fast, and tasty food.</p>
+  </div>
+
+  <h3>Location</h3>
+  <div class="card">
+    <p>123 Flavor Street, Boston, MA</p>
+  </div>
+
+  <h3>Hours</h3>
+  <table>
+    <tr><th>Day</th><th>Open</th><th>Close</th></tr>
+    <tr><td>Mon-Thu</td><td>11:00 AM</td><td>9:00 PM</td></tr>
+    <tr><td>Fri-Sat</td><td>11:00 AM</td><td>10:00 PM</td></tr>
+    <tr><td>Sun</td><td>12:00 PM</td><td>8:00 PM</td></tr>
+  </table>
+
+  <h3>Gallery</h3>
+  <img src="https://media.timeout.com/images/105849898/1920/1080/image.webp" alt="Restaurant photo" class="hero"/>
+{% endblock %}
