@@ -4,15 +4,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}My Restaurant{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'restaurant/style.css' %}">
+  <title>{% block title %}K-Block Restaurant{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'restaurant_styles.css' %}">
 </head>
 <body>
   <header>
-    <h1>My Restaurant</h1>
+    <h1>K-Block Restaurant</h1>
     <nav>
       <a href="{% url 'main' %}">Main</a>
-      <!-- Safe to keep these as plain paths until we wire URLs -->
       <a href="{% url 'order' %}">Order</a>
       <a href="{% url 'confirmation' %}">Confirmation</a>
     </nav>
@@ -23,7 +22,9 @@
   </main>
 
   <footer>
-    © {% now "Y" %} My Restaurant
-  </footer>
+  <div>K-Block Korean Restaurant {% now "Y" %}</div>
+  <div class="muted">Current Time: {% now "D M d H:i:s Y" %}</div>
+</footer>
+
 </body>
 </html>
