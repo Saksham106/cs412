@@ -1,3 +1,8 @@
+<!--
+  File: restaurant/templates/restaurant/base.html
+  Author: Saksham Goel (saksham@bu.edu), 09/15/2025
+  Description: Base template providing head, header/nav, main content block, footer with current date and time.
+-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,9 +10,12 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}K-Block Restaurant{% endblock %}</title>
+
+  <!-- Static CSS for shared styles across pages -->
   <link rel="stylesheet" href="{% static 'restaurant_styles.css' %}">
 </head>
 <body>
+  <!-- Site header + simple nav -->
   <header>
     <h1>K-Block Restaurant</h1>
     <nav>
@@ -17,14 +25,15 @@
     </nav>
   </header>
 
+  <!-- Page content -->
   <main class="container">
     {% block content %}{% endblock %}
   </main>
 
+  <!-- Footer: includes current date/time -->
   <footer>
-  <div>K-Block Korean Restaurant {% now "Y" %}</div>
-  <div class="muted">Current Time: {% now "D M d H:i:s Y" %}</div>
-</footer>
-
+    <div>K-Block Korean Restaurant {% now "Y" %}</div>
+    <div class="muted">Current Time: {% now "D M d H:i:s Y" %}</div>
+  </footer>
 </body>
 </html>

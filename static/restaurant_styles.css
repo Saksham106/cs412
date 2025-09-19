@@ -1,3 +1,9 @@
+/* File: static/restaurant_styles.css 
+    Author: Saksham Goel (saksham@bu.edu), 09/16/2025
+    Description: Styles for the K-Block Restaurant web application. Includes
+    responsive layout, card styles, table styles, form styles, and image styles.
+*/
+
 /* Simple, clean styles for the restaurant app */
 :root {
   --bg: #f7fafc;      

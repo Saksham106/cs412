@@ -1,13 +1,22 @@
+<!--
+  File: restaurant/templates/restaurant/confirmation.html
+  Author: Saksham Goel (saksham@bu.edu), 09/17/2025
+  Description: Confirmation page that shows ready time, selected items, total, and customer information. Also handles the empty-order case.
+-->
+
 {% extends "restaurant/base.html" %}
-{% block title %}Confirmation — My Restaurant{% endblock %}
+{% block title %}Confirmation — K-Block Restaurant{% endblock %}
 
 {% block content %}
   <h2>Confirmation</h2>
 
+  {# Empty order path shown if no items were selected #}
   {% if empty_order %}
     <p><strong>No items selected.</strong></p>
     <p><a href="{% url 'order' %}">Back to Order Page</a></p>
   {% else %}
+
+    <!-- Ready time and order summary -->
     <p>Thank you for your order!</p>
     <p><strong>Your order will be ready at:</strong> {{ ready_at }}</p>
 
@@ -20,6 +29,7 @@
 
     <p><strong>Total:</strong> ${{ total }}</p>
 
+    <!-- Customer details -->
     <h3>Customer Information:</h3>
     <p>Name: {{ customer.name }}</p>
     <p>Phone: {{ customer.phone }}</p>

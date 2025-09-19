@@ -1,17 +1,26 @@
+<!--
+  File: restaurant/templates/restaurant/main.html
+  Author: Saksham Goel (saksham@bu.edu), 09/15/2025
+  Description: Main landing page showing welcome text, location, hours table, and an image.
+-->
+
 {% extends "restaurant/base.html" %}
 {% block title %}Welcome — K-Block Restaurant{% endblock %}
 
 {% block content %}
+  <!-- Welcome section -->
   <h2>Welcome!</h2>
   <div class="card">
-    <p>We're a korean restaurant exited to show you our delicious menu.</p>
+    <p>We're a Korean restaurant excited to share our delicious menu.</p>
   </div>
 
+  <!-- Location section -->
   <h3>Location</h3>
   <div class="card">
     <p>1002 Korea Town, Boston, MA</p>
   </div>
 
+  <!-- Hours section: simple table -->
   <h3>Hours</h3>
   <table>
     <tr><th>Day</th><th>Open</th><th>Close</th></tr>
@@ -20,6 +29,5 @@
     <tr><td>Sun</td><td>12:00 PM</td><td>8:00 PM</td></tr>
   </table>
 
-  <h3>Gallery</h3>
-  <img src="https://media.timeout.com/images/105849898/1920/1080/image.webp" alt="Restaurant photo" class="hero"/>
-{% endblock %}
+  <!-- Restaurant gallery -->
+  <h3>Gallery

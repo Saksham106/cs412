@@ -1,12 +1,21 @@
+<!--
+  File: restaurant/templates/restaurant/order.html
+  Author: Saksham Goel (saksham@bu.edu), 09/16/2025
+  Description: Order page with 4 menu items (checkboxes), a randomized daily
+               special, a simple Tteokbokki spice option (no extra cost),
+               and customer information fields. Posts to /confirmation/.
+-->
 {% extends "restaurant/base.html" %}
 {% block title %}Order — My Restaurant{% endblock %}
 
 {% block content %}
   <h2>Place an Order</h2>
 
+  <!-- Form posts to confirmation view -->
   <form action="{% url 'confirmation' %}" method="post">
     {% csrf_token %}
 
+    <!-- Menu section: loop through 4 items and show label with price -->
     <h3>Select your items:</h3>
     {% for id, label, price in menu %}
       <div>
@@ -17,7 +26,7 @@
       </div>
     {% endfor %}
 
-    <!-- Tteokbokki options (no extra cost). Always visible; applied only if Tteokbokki is selected. -->
+    <!-- Spice level (for Tteokbokki) -->
     <div style="margin: 0.25rem 0 0 1.4rem; font-size: 0.95rem;">
       <span style="color:#6b7280;">Spice level (for Tteokbokki):</span>
       <label style="margin-left: .5rem;">
@@ -31,6 +40,7 @@
       </label>
     </div>
 
+    <!-- Special: One randomized item per page render -->
     <h3 style="margin-top:1rem;">Today's Special:</h3>
     <div>
       <label>
@@ -43,12 +53,14 @@
       <input type="hidden" name="daily_id" value="{{ daily.id }}">
     </div>
 
+    <!-- Notes to the kitchen -->
     <h3 style="margin-top:1rem;">Special Instructions:</h3>
     <div>
       <label for="instructions">Please share any special instructions:</label><br>
       <textarea id="instructions" name="instructions" rows="3" cols="50"></textarea>
     </div>
 
+    <!-- Customer contact info -->
     <h3 style="margin-top:1rem;">Customer Information:</h3>
     <div>
       <label for="cust_name">Name:</label><br>
