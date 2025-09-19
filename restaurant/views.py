@@ -7,16 +7,16 @@ def main(request):
 
 # ----- Simple Korean menu: (id, label, price) -----
 MENU = [
-    ("bibimbap",       "Bibimbap",            12.00),
-    ("bulgogi_bowl",   "Bulgogi Beef Bowl",   14.00),
-    ("kimchi_jjigae",  "Kimchi Jjigae",       11.00),
-    ("tteokbokki",     "Tteokbokki",           8.00),
+    ("bibimbap", "Bibimbap", 12.00),
+    ("bulgogi_bowl", "Bulgogi Beef Bowl", 14.00),
+    ("kimchi_jjigae", "Kimchi Jjigae", 11.00),
+    ("tteokbokki", "Tteokbokki", 8.00),
 ]
 
 # ----- Simple specials: (id, name, price, short desc) -----
 SPECIALS = [
-    ("galbi",              "Galbi Short Ribs",          18.00, "soy-garlic glaze"),
-    ("yangnyeom_chicken",  "Yangnyeom Fried Chicken",   15.00, "sweet & spicy glaze"),
+    ("galbi", "Galbi Short Ribs", 18.00, "soy-garlic glaze"),
+    ("yangnyeom_chicken", "Yangnyeom Fried Chicken", 15.00, "sweet & spicy glaze"),
 ]
 
 def order(request):
@@ -24,9 +24,7 @@ def order(request):
     daily = random.choice(SPECIALS)  # tuple: (id, name, price, desc)
     return render(request, "restaurant/order.html", {
         "menu": MENU,
-        "daily": {
-            "id": daily[0], "name": daily[1], "price": daily[2], "desc": daily[3]
-        }
+        "daily": {"id": daily[0], "name": daily[1], "price": daily[2], "desc": daily[3]}
     })
 
 def confirmation(request):
@@ -40,9 +38,11 @@ def confirmation(request):
         }
         return render(request, template, context)
 
-    # --- Read form data like in the class example ---
+    # --- Read form data ---
     selected = request.POST.getlist("items")            # e.g., ["bibimbap", "daily"]
     daily_id = request.POST.get("daily_id", "")
+    # spice option (only used if tteokbokki selected)
+    tteok_spice = request.POST.get("tteokbokki_spice", "").strip()
 
     customer = {
         "name": request.POST.get("customer_name", "").strip(),
@@ -51,7 +51,7 @@ def confirmation(request):
         "instructions": request.POST.get("instructions", "").strip(),
     }
 
-    # Price lookups (match our simple MENU/SPECIALS from earlier)
+    # Price lookups for menu and specials
     menu_map = {i: (label, price) for (i, label, price) in MENU}
     specials_map = {i: (name, price) for (i, name, price, _desc) in SPECIALS}
 
@@ -65,21 +65,24 @@ def confirmation(request):
             continue
         if item_id in menu_map:
             label, price = menu_map[item_id]
+            # If tteokbokki was selected and a spice is provided, annotate the label
+            if item_id == "tteokbokki" and tteok_spice:
+                label = f"{label} (Spice: {tteok_spice})"
             items_out.append({"label": label, "price": price})
             total += price
 
     # Daily special (if chosen)
     if "daily" in selected and daily_id in specials_map:
         name, price = specials_map[daily_id]
-        items_out.append({"label": f"Today’s Special: {name}", "price": price})
+        items_out.append({"label": f"Today's Special: {name}", "price": price})
         total += price
 
-    # If nothing was selected, still render confirmation (simple like the sample)
+    # If nothing was selected, still render confirmation
     if not items_out:
         context = {"empty_order": True, "customer": customer}
         return render(request, template, context)
 
-    # Ready time: 30–60 min from now using time module
+    # Ready time: 30–60 min from current time
     minutes = random.randint(30, 60)
     ready_ts = time.time() + minutes * 60
     ready_str = time.strftime("%a %b %d, %I:%M %p", time.localtime(ready_ts)).lstrip("0")

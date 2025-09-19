@@ -17,6 +17,20 @@
       </div>
     {% endfor %}
 
+    <!-- Tteokbokki options (no extra cost). Always visible; applied only if Tteokbokki is selected. -->
+    <div style="margin: 0.25rem 0 0 1.4rem; font-size: 0.95rem;">
+      <span style="color:#6b7280;">Spice level (for Tteokbokki):</span>
+      <label style="margin-left: .5rem;">
+        <input type="radio" name="tteokbokki_spice" value="Mild"> Mild
+      </label>
+      <label style="margin-left: .5rem;">
+        <input type="radio" name="tteokbokki_spice" value="Medium" checked> Medium
+      </label>
+      <label style="margin-left: .5rem;">
+        <input type="radio" name="tteokbokki_spice" value="Hot"> Hot
+      </label>
+    </div>
+
     <h3 style="margin-top:1rem;">Today's Special:</h3>
     <div>
       <label>
