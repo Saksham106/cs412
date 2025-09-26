@@ -1,19 +1,31 @@
+<!--
+  File: mini_insta/templates/mini_insta/show_all_profiles.html
+  Author: Saksham Goel (saksham@bu.edu), 09/26/2025
+  Description: Lists all Profile records with image, username, and display name.
+  Each row links to the corresponding profile's detail page.
+-->
+
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
 
+<!-- Main content: list of profiles in row cards -->
 <main class="show_all_main">
+
   {% for profile in profiles %}
     <a href="{% url 'show_profile' profile.pk %}" class="show_all_link">
       <div class="show_all_container">
+        
         <img src="{{ profile.profile_image_url }}" alt="Profile image" class="show_all_image">
         <div class="show_all_text">
           <h2>@{{ profile.username }}</h2>
           <h4>{{ profile.display_name }}</h4>
         </div>
+
       </div>
     </a>
   {% endfor %}
+
 </main>
 
 {% endblock %}

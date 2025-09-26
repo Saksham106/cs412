@@ -1,7 +1,15 @@
+<!--
+  File: mini_insta/templates/mini_insta/show_profile.html
+  Author: Saksham Goel (saksham@bu.edu), 09/26/2025
+  Description: Displays a single Profile with larger image, handle, display name,
+  and bio text. Placeholder text included for future features (followers, posts).
+-->
+
 {% extends 'mini_insta/base.html' %}
 
 {% block content %}
 
+<!-- Main content: single profile detail -->
 <main class="profile_main">
   <div>
     <img src="{{ profile.profile_image_url }}" alt="Profile image" class="profile_image">
