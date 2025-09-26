@@ -1,0 +1,21 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>My Blog</title>
+    <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+  </head>
+  <body>
+    <head>
+      <h1>Welcome to My Blog</h1>
+      <nav>
+        <ul>
+            <li><a href="{% url 'random' %}">Random Article</a></li>
+            <li><a href="{% url 'show_all' %}">Show All</a></li>
+        </ul>
+      </nav>
+    </head>
+      {% block content %}
+      {% endblock %}
+  </body>
+</html>
