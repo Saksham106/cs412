@@ -1,0 +1,33 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Mini Insta</title>
+    <link rel="stylesheet" href="{% static 'mini_insta_styles.css' %}">
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <header>
+        <a href="{% url 'show_all_profiles' %}">
+          <h1 class="title">Mini Insta</h1>
+        </a>
+        <nav>
+          <a href="{% url 'show_all_profiles' %}">Show All</a>
+        </nav>
+      </header>
+
+      {% block content %}
+      {% endblock %}
+
+    </div>
+  </body>
+
+  <footer>
+    <p style="text-align:center; color:#6b7280; margin:24px 0 12px 0;">
+      &copy; 2024 Mini Insta (Definitely NOT affiliated with Instagram)
+    </p>
+  </footer>
+
+</html>

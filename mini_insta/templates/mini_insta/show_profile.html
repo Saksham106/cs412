@@ -1,0 +1,22 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<main class="profile_main">
+  <div>
+    <img src="{{ profile.profile_image_url }}" alt="Profile image" class="profile_image">
+  </div>
+
+  <div class="profile_text">
+    <h2>@{{ profile.username }}</h2>
+    <h4>{{ profile.display_name }}</h4>
+    <p>{{ profile.bio_text }}</p>
+
+    <p style="color:#6b7280; margin-top:12px;">
+      <em>Followers / Following / Posts — coming soon</em>
+    </p>
+  </div>
+  
+</main>
+
+{% endblock %}
