@@ -1,0 +1,97 @@
+/* File: static/mini_insta_styles.css
+   Author: Saksham Goel (saksham@bu.edu), 09/26/2025
+   Description: Minimal styles for Mini Insta.
+   Sections: Theme tokens, layout containers, header/nav, list view, detail view, footer.
+*/
+
+/* === Theme tokens === */
+:root{
+  --bg:#f7fafc;
+  --fg:#1f2937;
+  --header:#111827;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#2563eb;
+}
+
+/* === Layout === */
+body{
+  margin:0 auto;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--fg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a{ text-decoration:none; color:inherit; }
+
+.page-wrapper{
+  max-width:900px;  
+  width:100%;
+  margin:0 auto;    
+  padding:20px;
+  min-height:87vh;  
+  display:flex;             
+  flex-direction:column;
+}
+
+.content { flex:1; }    
+
+footer { margin-top:auto; } 
+
+/* === Header & Nav === */
+header{
+  background:var(--header);
+  color:#fff;
+  padding:16px 20px;
+  margin:-20px -20px 20px; 
+}
+header .title{ margin:0; font-size:1.5rem; font-family:instagram-font, sans-serif; }
+nav a{ margin-right:12px; }
+nav a:hover{ text-decoration:underline; }
+
+/* === Profile list (Show All) === */
+.show_all_main{ padding:10px 0; }
+.show_all_link{ display:block; }
+
+.show_all_container{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px groove #e5e7eb;
+  background:var(--card);
+  padding:10px;
+  margin-bottom:12px;
+  border-radius:8px;
+}
+
+.show_all_image{
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.show_all_text h2{ margin:0; font-size:1.1rem; }
+.show_all_text h4{ margin:4px 0 0; color:var(--muted); font-weight:500; }
+
+/* === Single profile (Detail) === */
+.profile_main{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  background:var(--card);
+  padding:16px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+}
+
+.profile_image{
+  width:240px;
+  height:240px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.profile_text h2{ margin:0 0 6px; }
+.profile_text h4{ margin:0 0 10px; color:var(--muted); font-weight:600; }
