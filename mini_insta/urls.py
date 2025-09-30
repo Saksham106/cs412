@@ -4,10 +4,11 @@
 # detail views for Profile records.
 
 from django.urls import path
-from .views import ProfileListView, ProfileDetailView
+from .views import *
 
 # Purpose: Define app URL patterns used by the project-level router.
 urlpatterns = [
     path('', ProfileListView.as_view(), name='show_all_profiles'),
     path('profile/<int:pk>/', ProfileDetailView.as_view(), name='show_profile'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='show_post')
 ]

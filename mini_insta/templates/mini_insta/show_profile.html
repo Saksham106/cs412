@@ -26,5 +26,33 @@
   </div>
   
 </main>
+<hr style="margin: 16px 0;">
+
+<!-- Posts list (simple) -->
+<section>
+  <h3>Posts</h3>
+
+  {% for post in profile.get_all_posts %}
+    <div style="margin: 12px 0;">
+      <a href="{% url 'show_post' post.pk %}" style="text-decoration: none; color: inherit;">
+        {% with first_photo=post.get_all_photos.0 %}
+          {% if first_photo and first_photo.image_url %}
+            <img src="{{ first_photo.image_url }}" alt="Post {{ forloop.counter }} thumbnail" style="max-width: 320px; height: auto;">
+          {% else %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" alt="No image" style="max-width: 320px; height: auto;">
+          {% endif %}
+        {% endwith %}
+        <div style="margin-top: 6px;">
+          <span style="color:#6b7280;">{{ post.timestamp|date:"M j, Y g:i a" }}</span>
+          {% if post.caption %}
+            <p style="margin: 4px 0 0 0;">{{ post.caption }}</p>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+  {% empty %}
+    <p style="color:#6b7280;">This profile hasn't posted yet.</p>
+  {% endfor %}
+</section>
 
 {% endblock %}
