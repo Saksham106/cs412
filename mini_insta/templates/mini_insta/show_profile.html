@@ -19,6 +19,10 @@
     <h2>@{{ profile.username }}</h2>
     <h4>{{ profile.display_name }}</h4>
     <p>{{ profile.bio_text }}</p>
+    
+    <p style="color:#9ca3af; font-size:0.9em; margin-top:8px;">
+      Joined {{ profile.join_date|date:"F Y" }}
+    </p>
 
     <p style="color:#6b7280; margin-top:12px;">
       <em>Followers / Following / Posts — coming soon</em>
