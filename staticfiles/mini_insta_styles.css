@@ -1,7 +1,6 @@
 /* File: static/mini_insta_styles.css
    Author: Saksham Goel (saksham@bu.edu), 09/26/2025
    Description: Minimal styles for Mini Insta.
-   Sections: Theme tokens, layout containers, header/nav, list view, detail view, footer.
 */
 
 /* === Theme tokens === */
@@ -12,6 +11,8 @@
   --card:#ffffff;
   --muted:#6b7280;
   --accent:#2563eb;
+  --border:#e5e7eb;
+  --shadow:0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* === Layout === */
@@ -35,9 +36,15 @@ a{ text-decoration:none; color:inherit; }
   flex-direction:column;
 }
 
-.content { flex:1; }    
+footer { margin-top:auto; }
 
-footer { margin-top:auto; } 
+/* === Shared Card Component === */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+}
 
 /* === Header & Nav === */
 header{
@@ -46,11 +53,11 @@ header{
   padding:16px 20px;
   margin:-20px -20px 20px; 
 }
-header .title{ margin:0; font-size:1.5rem; font-family:instagram-font, sans-serif; }
+header .title{ margin:0; font-size:1.5rem; }
 nav a{ margin-right:12px; }
 nav a:hover{ text-decoration:underline; }
 
-/* === Profile list (Show All) === */
+/* === Profile Components === */
 .show_all_main{ padding:10px 0; }
 .show_all_link{ display:block; }
 
@@ -58,40 +65,137 @@ nav a:hover{ text-decoration:underline; }
   display:flex;
   align-items:center;
   gap:12px;
-  border:1px groove #e5e7eb;
-  background:var(--card);
   padding:10px;
   margin-bottom:12px;
-  border-radius:8px;
 }
 
-.show_all_image{
-  width:100px;
-  height:100px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.show_all_text h2{ margin:0; font-size:1.1rem; }
-.show_all_text h4{ margin:4px 0 0; color:var(--muted); font-weight:500; }
-
-/* === Single profile (Detail) === */
 .profile_main{
   display:flex;
   gap:16px;
   align-items:flex-start;
-  background:var(--card);
   padding:16px;
-  border-radius:8px;
-  border:1px solid #e5e7eb;
 }
 
-.profile_image{
-  width:240px;
-  height:240px;
+.profile_image, .show_all_image{
   object-fit:cover;
-  border-radius:12px;
+  border-radius:8px;
 }
 
-.profile_text h2{ margin:0 0 6px; }
+.show_all_image{ width:100px; height:100px; }
+.profile_image{ width:240px; height:240px; border-radius:12px; }
+
+.show_all_text h2, .profile_text h2{ margin:0; }
+.show_all_text h2{ font-size:1.1rem; }
+.show_all_text h4{ margin:4px 0 0; color:var(--muted); font-weight:500; }
+.profile_text h2{ margin-bottom:6px; }
 .profile_text h4{ margin:0 0 10px; color:var(--muted); font-weight:600; }
+
+/* === Forms === */
+.create_post_form{
+  padding:24px;
+  border-radius:12px;
+  max-width:600px;
+  margin:0 auto;
+}
+
+.create_post_form h1{
+  margin:0 0 20px;
+  font-size:1.5rem;
+  color:var(--header);
+  text-align:center;
+}
+
+.create_post_form table{
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:20px;
+}
+
+.create_post_form th{
+  text-align:left;
+  padding:8px 12px 8px 0;
+  font-weight:600;
+  vertical-align:top;
+  width:120px;
+}
+
+.create_post_form td{ padding:8px 0; }
+
+.create_post_form input, .create_post_form textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:14px;
+  font-family:inherit;
+  box-sizing:border-box;
+}
+
+.create_post_form input:focus, .create_post_form textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.create_post_form textarea{ min-height:80px; resize:vertical; }
+
+/* === Buttons === */
+.form_buttons{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.btn{
+  padding:12px 24px;
+  border:none;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition:all 0.2s ease;
+}
+
+.btn_primary{
+  background:var(--accent);
+  color:white;
+}
+
+.btn_primary:hover{
+  background:#1d4ed8;
+  transform:translateY(-1px);
+}
+
+.btn_secondary{
+  background:#f3f4f6;
+  color:var(--fg);
+  border:1px solid #d1d5db;
+}
+
+.btn_secondary:hover{ background:#e5e7eb; }
+
+/* === Footer Navigation === */
+.footer_nav{
+  text-align:center;
+  margin:20px 0;
+}
+
+.nav_create_btn{
+  background:linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+  color:white;
+  padding:12px 20px;
+  border:none;
+  border-radius:25px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(131,58,180,0.3);
+  transition:all 0.3s ease;
+}
+
+.nav_create_btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(131,58,180,0.4);
+}
