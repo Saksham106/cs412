@@ -18,6 +18,8 @@
   <p>No images for this post.</p>
 {% endfor %}
 
-<p><a href="{% url 'show_profile' post.profile.pk %}">Back to profile</a></p>
+<div style="margin-top: 20px; text-align: center;">
+  <a href="{% url 'show_profile' post.profile.pk %}" class="btn btn_secondary">Back to profile</a>
+</div>
 
 {% endblock %}

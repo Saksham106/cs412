@@ -14,7 +14,7 @@
 
   {% for profile in profiles %}
     <a href="{% url 'show_profile' profile.pk %}" class="show_all_link">
-      <div class="show_all_container">
+      <div class="card show_all_container">
         
         <img src="{{ profile.profile_image_url }}" alt="Profile image" class="show_all_image">
         <div class="show_all_text">

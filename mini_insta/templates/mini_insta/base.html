@@ -34,6 +34,13 @@
   </body>
 
   <footer>
+    {% if profile %}
+      <div class="footer_nav">
+        <a href="{% url 'create_post' profile.pk %}">
+          <button class="nav_create_btn">Create New Post</button>
+        </a>
+      </div>
+    {% endif %}
     <p style="text-align:center; color:#6b7280; margin:24px 0 12px 0;">
       &copy; 2024 Mini Insta (Definitely NOT affiliated with Instagram)
     </p>
