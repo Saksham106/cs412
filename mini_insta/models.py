@@ -1,8 +1,6 @@
 # File: mini_insta/models.py
 # Author: Saksham Goel (saksham@bu.edu), 09/24/2025
-# Description: Models for the Mini Insta application, defining the Profile
-# model with fields for username, display name, profile image URL, bio text,
-# and join date.
+# Description: Models for the Mini Insta application, including Profile, Post, and Photo. 
 
 from django.db import models
 from django.urls import reverse

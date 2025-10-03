@@ -1,7 +1,7 @@
 # File: mini_insta/urls.py
 # Author: Saksham Goel (saksham@bu.edu), 09/24/2025
-# Description: URL routes for the Mini Insta application, mapping list and
-# detail views for Profile records.
+# Description: URL routes for the Mini Insta application, including profile,
+# post, and photo views.
 
 from django.urls import path
 from .views import *

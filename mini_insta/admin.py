@@ -1,7 +1,7 @@
 # File: mini_insta/admin.py
 # Author: Saksham Goel (saksham@bu.edu), 09/24/2025
 # Description: Admin configuration for the Mini Insta application, registering
-# the Profile model to enable management via the Django admin interface.
+# the Profile, Post, and Photo models.
 
 from django.contrib import admin
 

@@ -1,14 +1,21 @@
-{# mini_insta/templates/mini_insta/show_post.html #}
+<!--
+  File: mini_insta/templates/mini_insta/show_post.html
+  Author: Saksham Goel (saksham@bu.edu), 09/25/2025
+  Description: Displays a single post with its details, including photos.
+-->
+
 {% extends "mini_insta/base.html" %}
 
 {% block content %}
 
+<!-- Post details -->
 <h1>Post by @{{ post.profile.username }}</h1>
 <p>{{ post.timestamp|date:"M j, Y g:i a" }}</p>
 {% if post.caption %}<p>{{ post.caption }}</p>{% endif %}
 
 <hr>
 
+<!-- Photos associated with the post -->
 <h2>Photos</h2>
 {% for photo in post.get_all_photos %}
   <div style="margin-bottom:12px;">

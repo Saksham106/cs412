@@ -1,7 +1,7 @@
 # File: mini_insta/views.py
 # Author: Saksham Goel (saksham@bu.edu), 09/24/2025
-# Description: Class-based views for listing all profiles and showing a single
-# profile.
+# Description: Class-based views for the Mini Insta application, including
+# listing profiles, displaying profile and post details, and creating posts.
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
@@ -38,7 +38,8 @@ class CreatePostView(CreateView):
         context = super().get_context_data()
         context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
         return context
-    
+
+    # Upon form submission, associate the new Post with the Profile
     def form_valid(self, form):
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
