@@ -12,8 +12,13 @@
             <h2>{{ article.title }}</h2>
             <h3>by {{ article.author }}</h3>
             <p> {{ article.text }}</p>
+            <a href="{% url 'update_article' article.pk %}">Edit Article</a>
         </div>
-            <img src="{{ article.image }}" alt="">
+         {% if article.image_file %}
+            <img src="{{ article.image_file.url }}" alt="">
+            {% else %}
+            <p>No image for this article.</p>
+        {% endif %}
             <div></div>
             <h2>Comments</h2>
             <h3>
@@ -23,6 +28,7 @@
                 <div>
                     <h4>{{ comment.author }} at {{ comment.published }}</h4>
                     <p>{{ comment.text }}</p>
+                    <a href="{% url 'delete_comment' comment.pk %}">Delete</a>
                 </div>
             {% empty %}
                 <p>No comments yet.</p>

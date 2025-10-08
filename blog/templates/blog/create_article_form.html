@@ -4,7 +4,8 @@
 
 <h1>Create a New Article</h1>
 
-<form action="{% url 'create_article' %}" method="post">
+<form action="{% url 'create_article' %}" method="post"
+ enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{ form.as_table }}

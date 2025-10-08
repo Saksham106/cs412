@@ -8,7 +8,8 @@ class Article(models.Model):
     author = models.TextField(blank=True)
     text = models.TextField(blank=True)
     published = models.DateTimeField(auto_now=True)
-    image = models.URLField(blank=True)
+    # image = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
 
     def __str__(self):
         return f'{self.title} by {self.author}'

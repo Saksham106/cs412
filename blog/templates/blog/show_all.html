@@ -15,7 +15,11 @@
                 <p> {{ article.text }}</p>
             </div>
             <a href="{% url 'article' article.pk %}">
-                <img src="{{ article.image }}" alt="">
+                {% if article.image_file %}
+                <img src="{{ article.image_file.url }}" alt="">
+                {% else %}
+                <p>No image for this article.</p>
+                {% endif %}
             </a>
         </article>
     {% endfor %}
