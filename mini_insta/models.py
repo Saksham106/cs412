@@ -19,6 +19,9 @@ class Profile(models.Model):
     
     def get_all_posts(self):
         return Post.objects.filter(profile=self).order_by('-timestamp')
+    
+    def get_absolute_url(self):
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 class Post(models.Model):
     '''Model representing a post made by a user.'''

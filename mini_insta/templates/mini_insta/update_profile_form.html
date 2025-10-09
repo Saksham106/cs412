@@ -1,0 +1,28 @@
+<!--
+  File: mini_insta/templates/mini_insta/update_profile_form.html
+  Author: Saksham Goel (saksham@bu.edu), 09/30/2025
+  Description: Form for updating an existing profile in Mini Insta.
+-->
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<!-- Update Profile Form -->
+<div class="card update_profile_form">
+    <h1>Update Profile: @{{ object.username }}</h1>
+
+    <form action="{% url 'update_profile' object.pk %}" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        
+        <div class="form_buttons">
+            <button type="submit" class="btn btn_primary">Update Profile</button>
+            <a href="{% url 'show_profile' object.pk %}" class="btn btn_secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
