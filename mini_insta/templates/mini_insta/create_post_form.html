@@ -13,11 +13,21 @@
 <div class="card create_post_form">
     <h1>Create a New Post for @{{ profile.username }}</h1>
 
-    <form action="{% url 'create_post' profile.pk %}" method="post">
+        <form action="{% url 'create_post' profile.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
+
+                <table>
+                    <tr>
+                        <th><label for="id_files">Photos</label></th>
+                        <td>
+                            <input type="file" id="id_files" name="files" multiple accept="image/*">
+                            <p style="color:#6b7280; margin-top:6px;">You may select one or more image files to upload.</p>
+                        </td>
+                    </tr>
+                </table>
         
         <div class="form_buttons">
             <button type="submit" class="btn btn_primary">Create Post</button>

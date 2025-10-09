@@ -40,8 +40,8 @@
     <div style="margin: 12px 0;">
       <a href="{% url 'show_post' post.pk %}" style="text-decoration: none; color: inherit;">
         {% with first_photo=post.get_all_photos.0 %}
-          {% if first_photo and first_photo.image_url %}
-            <img src="{{ first_photo.image_url }}" alt="Post {{ forloop.counter }} thumbnail" style="max-width: 320px; height: auto;">
+          {% if first_photo and first_photo.get_image_url %}
+            <img src="{{ first_photo.get_image_url }}" alt="Post {{ forloop.counter }} thumbnail" style="max-width: 320px; height: auto;">
           {% else %}
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" alt="No image" style="max-width: 320px; height: auto;">
           {% endif %}

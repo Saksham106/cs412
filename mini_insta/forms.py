@@ -10,5 +10,4 @@ class CreatePostForm(forms.ModelForm):
         model = Post
         fields = ['caption']
     
-    image_url = forms.URLField(label="Image URL", required=False)
 

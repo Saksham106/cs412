@@ -38,9 +38,25 @@ class Post(models.Model):
 class Photo(models.Model):
     '''Model representing a photo associated with a post.'''
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image_url = models.URLField(blank=False)
+    image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        if self.image_url:
+            return f'Photo (url) for post {self.post.caption[:15]}...'
+        if self.image_file:
+            return f'Photo (file:{self.image_file.name}) for post {self.post.caption[:15]}...'
         return f'Photo for post {self.post.caption[:15]}...'
+    
+    def get_image_url(self):
+        """Return the best URL for this photo: prefer image_url, else image_file.url."""
+        if self.image_url:
+            return self.image_url
+        if self.image_file:
+            try:
+                return self.image_file.url
+            except ValueError:
+                return ''
+        return ''
     

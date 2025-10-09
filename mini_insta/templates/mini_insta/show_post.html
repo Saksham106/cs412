@@ -19,7 +19,12 @@
 <h2>Photos</h2>
 {% for photo in post.get_all_photos %}
   <div style="margin-bottom:12px;">
-    <img src="{{ photo.image_url }}" alt="Photo {{ forloop.counter }}" style="max-width:600px;">
+
+      {% if photo.get_image_url %}
+        <img src="{{ photo.get_image_url }}" alt="Photo {{ forloop.counter }}" style="max-width:600px;">
+      {% else %}
+        <p>No image available.</p>
+      {% endif %}
   </div>
 {% empty %}
   <p>No images for this post.</p>
