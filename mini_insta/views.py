@@ -1,7 +1,7 @@
 # File: mini_insta/views.py
 # Author: Saksham Goel (saksham@bu.edu), 09/24/2025
 # Description: Class-based views for the Mini Insta application, including
-# listing profiles, displaying profile and post details, and creating posts.
+# creating, updating, and deleting profiles and posts.
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView

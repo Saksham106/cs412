@@ -1,5 +1,5 @@
 # File: mini_insta/forms.py
-# Author: Saksham Goel (saksham@bu.edu), 09/30/2025
+# Author: Saksham Goel (saksham@bu.edu), 10/09/2025
 # Description: Forms for the Mini Insta application, including post creation.
 
 from django import forms
