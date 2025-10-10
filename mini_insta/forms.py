@@ -15,3 +15,8 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['display_name', 'profile_image_url', 'bio_text']
 
+class UpdatePostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['caption']
+

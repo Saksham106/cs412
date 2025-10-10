@@ -13,6 +13,12 @@
 <p>{{ post.timestamp|date:"M j, Y g:i a" }}</p>
 {% if post.caption %}<p>{{ post.caption }}</p>{% endif %}
 
+<!-- Post actions -->
+<div style="margin: 16px 0;">
+    <a href="{% url 'update_post' post.pk %}" class="btn btn_primary">Update Post</a>
+    <a href="{% url 'delete_post' post.pk %}" class="btn btn_secondary" style="background-color: #dc2626; color: white;">Delete Post</a>
+</div>
+
 <hr>
 
 <!-- Photos associated with the post -->

@@ -4,9 +4,9 @@
 # listing profiles, displaying profile and post details, and creating posts.
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
-from .forms import CreatePostForm, UpdateProfileForm
+from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
 from django.urls import reverse
 
 
@@ -63,3 +63,24 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_insta/update_profile_form.html'
+
+class DeletePostView(DeleteView):
+    """Delete an existing Post."""
+    model = Post
+    template_name = 'mini_insta/delete_post_form.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.get_object()
+        context['profile'] = self.get_object().profile
+        return context
+    
+    def get_success_url(self):
+        post = self.get_object()
+        return reverse('show_profile', kwargs={'pk': post.profile.pk})
+
+class UpdatePostView(UpdateView):
+    """Update an existing Post."""
+    model = Post
+    form_class = UpdatePostForm
+    template_name = 'mini_insta/update_post_form.html'

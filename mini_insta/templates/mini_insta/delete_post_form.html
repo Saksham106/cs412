@@ -1,0 +1,39 @@
+<!--
+  File: mini_insta/templates/mini_insta/delete_post_form.html
+  Author: Saksham Goel (saksham@bu.edu), 09/30/2025
+  Description: Form for deleting an existing post in Mini Insta.
+-->
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<!-- Delete Post Confirmation -->
+<div class="card delete_post_form">
+    <h1>Are you sure you want to delete this post?</h1>
+    
+    <div style="margin: 16px 0; padding: 12px; background-color: #f9fafb; border-radius: 8px;">
+        <p><strong>Post by @{{ profile.username }}</strong></p>
+        <p style="color:#6b7280; font-size:0.9em;">{{ post.timestamp|date:"M j, Y g:i a" }}</p>
+        {% if post.caption %}
+            <p>{{ post.caption }}</p>
+        {% endif %}
+        
+        <!-- Show first photo if available -->
+        {% with first_photo=post.get_all_photos.0 %}
+            {% if first_photo and first_photo.get_image_url %}
+                <img src="{{ first_photo.get_image_url }}" alt="Post image" style="max-width: 300px; height: auto; margin-top: 8px;">
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form_buttons">
+            <button type="submit" class="btn btn_primary" style="background-color: #dc2626;">Delete Post</button>
+            <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
