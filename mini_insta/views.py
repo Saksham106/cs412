@@ -57,6 +57,11 @@ class CreatePostView(CreateView):
             )
         
         return response
+    
+    def get_success_url(self):
+        """Redirect to the newly created post's detail page."""
+        pk = self.object.pk
+        return reverse('show_post', kwargs={'pk': pk})
 
 class UpdateProfileView(UpdateView):
     """Update an existing Profile."""

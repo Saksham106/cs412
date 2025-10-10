@@ -19,7 +19,7 @@
 body{
   margin:0 auto;
   min-height:100vh;
-  background:var(--bg);
+  background:red;
   color:var(--fg);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
