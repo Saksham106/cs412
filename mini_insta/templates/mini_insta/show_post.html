@@ -11,6 +11,12 @@
 <!-- Post details -->
 <h1>Post by @{{ post.profile.username }}</h1>
 <p>{{ post.timestamp|date:"M j, Y g:i a" }}</p>
+
+<!-- Like count -->
+<p style="color:#6b7280; margin: 8px 0;">
+  <strong>{{ post.get_num_likes }}</strong> likes
+</p>
+
 {% if post.caption %}<p>{{ post.caption }}</p>{% endif %}
 
 <!-- Post actions -->
@@ -34,6 +40,24 @@
   </div>
 {% empty %}
   <p>No images for this post.</p>
+{% endfor %}
+
+<hr>
+
+<!-- Comments section -->
+<h2>Comments</h2>
+{% for comment in post.get_all_comments %}
+  <div style="margin: 12px 0; padding: 12px; background-color: #f9fafb; border-radius: 8px;">
+    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+      <strong>@{{ comment.profile.username }}</strong>
+      <span style="color:#6b7280; margin-left: 8px; font-size: 0.9em;">
+        {{ comment.timestamp|date:"M j, Y g:i a" }}
+      </span>
+    </div>
+    <p style="margin: 0;">{{ comment.text }}</p>
+  </div>
+{% empty %}
+  <p style="color:#6b7280;">No comments yet.</p>
 {% endfor %}
 
 <div style="margin-top: 20px; text-align: center;">

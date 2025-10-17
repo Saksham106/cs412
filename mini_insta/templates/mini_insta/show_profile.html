@@ -25,7 +25,15 @@
     </p>
 
     <p style="color:#6b7280; margin-top:12px;">
-      <em>Followers / Following / Posts — coming soon</em>
+      <a href="{% url 'show_followers' profile.pk %}" style="text-decoration: none; color: inherit;">
+        <strong>{{ profile.get_num_followers }}</strong> Followers
+      </a>
+      <span style="margin: 0 8px;">•</span>
+      <a href="{% url 'show_following' profile.pk %}" style="text-decoration: none; color: inherit;">
+        <strong>{{ profile.get_num_following }}</strong> Following
+      </a>
+      <span style="margin: 0 8px;">•</span>
+      <strong>{{ profile.get_all_posts.count }}</strong> Posts
     </p>
     
     <div style="margin-top: 16px;">

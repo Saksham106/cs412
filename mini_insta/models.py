@@ -22,6 +22,22 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         return reverse('show_profile', kwargs={'pk': self.pk})
+    
+    def get_followers(self):
+        """Return a list of profiles that follow this profile."""
+        return Profile.objects.filter(follower_profile__profile=self)
+    
+    def get_num_followers(self):
+        """Return the count of followers."""
+        return Follow.objects.filter(profile=self).count()
+    
+    def get_following(self):
+        """Return a list of profiles that this profile follows."""
+        return Profile.objects.filter(profile__follower_profile=self)
+    
+    def get_num_following(self):
+        """Return the count of profiles being followed."""
+        return Follow.objects.filter(follower_profile=self).count()
 
 class Post(models.Model):
     '''Model representing a post made by a user.'''
@@ -37,6 +53,18 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('show_post', kwargs={'pk': self.pk})
+    
+    def get_all_comments(self):
+        """Return all comments on this post."""
+        return Comment.objects.filter(post=self).order_by('-timestamp')
+    
+    def get_likes(self):
+        """Return all likes on this post."""
+        return Like.objects.filter(post=self)
+    
+    def get_num_likes(self):
+        """Return the count of likes on this post."""
+        return Like.objects.filter(post=self).count()
 
 class Photo(models.Model):
     '''Model representing a photo associated with a post.'''
@@ -61,5 +89,32 @@ class Photo(models.Model):
                 return self.image_file.url
             except ValueError:
                 return ''
-        return ''
+
+class Follow(models.Model):
+    '''Model representing a follow relationship between two profiles.'''
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile')
+    follower_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower_profile')
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.follower_profile.display_name} follows {self.profile.display_name}'
+
+class Comment(models.Model):
+    '''Model representing a comment on a post.'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    text = models.TextField(blank=False)
+
+    def __str__(self):
+        return f'{self.text}'
+
+class Like(models.Model):
+    '''Model representing a like on a post.'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.profile.display_name} likes post by {self.post.profile.display_name}'
     
