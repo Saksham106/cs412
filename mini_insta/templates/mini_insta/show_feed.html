@@ -1,0 +1,77 @@
+<!--
+  File: mini_insta/templates/mini_insta/show_feed.html
+  Author: Saksham Goel (saksham@bu.edu), 10/17/2025
+  Description: Displays post feed for a profile showing posts from followed profiles.
+-->
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1>Feed for @{{ profile.username }}</h1>
+
+<div style="margin: 16px 0;">
+  <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary">Back to Profile</a>
+</div>
+
+<hr>
+
+<!-- Post Feed -->
+<section>
+  <h3>Posts from people you follow</h3>
+
+  {% for post in posts %}
+    <div class="card" style="margin: 16px 0; padding: 16px;">
+      <!-- Post header with profile info -->
+      <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <img src="{{ post.profile.profile_image_url }}" alt="Profile image" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 12px;">
+        <div>
+          <h4 style="margin: 0;"><a href="{% url 'show_profile' post.profile.pk %}" style="text-decoration: none; color: inherit;">@{{ post.profile.username }}</a></h4>
+          <p style="margin: 0; color: #6b7280; font-size: 0.9em;">{{ post.timestamp|date:"M j, Y g:i a" }}</p>
+        </div>
+      </div>
+
+      <!-- Post content -->
+      {% if post.caption %}
+        <p style="margin: 0 0 12px 0;">{{ post.caption }}</p>
+      {% endif %}
+
+      <!-- First photo if available -->
+      {% with first_photo=post.get_all_photos.0 %}
+        {% if first_photo and first_photo.get_image_url %}
+          <img src="{{ first_photo.get_image_url }}" alt="Post image" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;">
+        {% endif %}
+      {% endwith %}
+
+      <!-- Like count -->
+      <p style="color:#6b7280; margin: 8px 0;">
+        <strong>{{ post.get_num_likes }}</strong> likes
+      </p>
+
+      <!-- Comments preview (show first 2 comments) -->
+      {% with comments=post.get_all_comments %}
+        {% if comments %}
+          <div style="margin-top: 12px;">
+            {% for comment in comments|slice:":2" %}
+              <div style="margin: 6px 0;">
+                <strong>@{{ comment.profile.username }}</strong> {{ comment.text }}
+              </div>
+            {% endfor %}
+            {% if comments.count > 2 %}
+              <p style="color:#6b7280; margin: 6px 0 0 0;">View all {{ comments.count }} comments</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <!-- Link to full post -->
+      <div style="margin-top: 12px;">
+        <a href="{% url 'show_post' post.pk %}" class="btn btn_primary" style="font-size: 0.9em; padding: 8px 16px;">View Post</a>
+      </div>
+    </div>
+  {% empty %}
+    <p style="color:#6b7280;">No posts from people you follow yet. Start following some profiles!</p>
+  {% endfor %}
+</section>
+
+{% endblock %}

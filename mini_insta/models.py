@@ -38,6 +38,11 @@ class Profile(models.Model):
     def get_num_following(self):
         """Return the count of profiles being followed."""
         return Follow.objects.filter(follower_profile=self).count()
+    
+    def get_post_feed(self):
+        """Return posts from profiles that this profile follows, ordered by most recent."""
+        following_profiles = self.get_following()
+        return Post.objects.filter(profile__in=following_profiles).order_by('-timestamp')
 
 class Post(models.Model):
     '''Model representing a post made by a user.'''
