@@ -35,12 +35,14 @@ class CreatePostView(CreateView):
     template_name = 'mini_insta/create_post_form.html'
     
     def get_context_data(self):
+        """Add profile to context."""
         context = super().get_context_data()
         context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
         return context
 
     # Upon form submission, associate the new Post with the Profile
     def form_valid(self, form):
+        """Validate the form and create a new Post and Photo objects."""
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
         form.instance.profile = profile
@@ -75,12 +77,14 @@ class DeletePostView(DeleteView):
     template_name = 'mini_insta/delete_post_form.html'
     
     def get_context_data(self, **kwargs):
+        """Add post and profile to context."""
         context = super().get_context_data(**kwargs)
         context['post'] = self.get_object()
         context['profile'] = self.get_object().profile
         return context
     
     def get_success_url(self):
+        """Redirect to the profile page of the deleted post."""
         post = self.get_object()
         return reverse('show_profile', kwargs={'pk': post.profile.pk})
 
@@ -117,4 +121,61 @@ class PostFeedListView(ListView):
         """Add profile to context."""
         context = super().get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
+        return context
+
+class SearchView(ListView):
+    """Search for profiles and posts based on text query."""
+    template_name = 'mini_insta/search_results.html'
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Handle GET requests - show search form if no query, otherwise show results."""
+        if 'query' not in request.GET:
+            # No query provided, show search form
+            profile = Profile.objects.get(pk=self.kwargs['pk'])
+            return render(request, 'mini_insta/search.html', {'profile': profile})
+        else:
+            # Query provided, use ListView to show results
+            return super().dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        """Return posts that match the search query."""
+        query = self.request.GET.get('query', '')
+        if query:
+            return Post.objects.filter(caption__icontains=query).order_by('-timestamp')
+        return Post.objects.none()
+    
+    def get_context_data(self, **kwargs):
+        """Add profile, query, and matching profiles to context."""
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query', '')
+        
+        # Add profile and query to context
+        context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
+        context['query'] = query
+        
+        # Add matching profiles - search username first, then display_name, then bio_text
+        if query:
+            matching_profiles = []
+            # Search by username
+            username_matches = Profile.objects.filter(username__icontains=query)
+            for profile in username_matches:
+                if profile not in matching_profiles:
+                    matching_profiles.append(profile)
+            
+            # Search by display_name
+            display_name_matches = Profile.objects.filter(display_name__icontains=query)
+            for profile in display_name_matches:
+                if profile not in matching_profiles:
+                    matching_profiles.append(profile)
+            
+            # Search by bio_text
+            bio_matches = Profile.objects.filter(bio_text__icontains=query)
+            for profile in bio_matches:
+                if profile not in matching_profiles:
+                    matching_profiles.append(profile)
+            
+            context['matching_profiles'] = matching_profiles
+        else:
+            context['matching_profiles'] = []
+        
         return context

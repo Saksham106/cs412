@@ -42,16 +42,20 @@
   {% if profile %}
     <div style="position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;">
       <div style="display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto;">
-        <a href="{% url 'show_feed' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 8px;">
+        <a href="{% url 'show_feed' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
           <span style="font-size: 1.2em;">🏠</span><br>
-          <span style="font-size: 0.8em;">Feed</span>
+          <span style="font-size: 0.7em;">Feed</span>
         </a>
-        <a href="{% url 'create_post' profile.pk %}" style="flex: 1; text-align: center; margin: 0 8px;">
+        <a href="{% url 'search' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
+          <span style="font-size: 1.2em;">🔍</span><br>
+          <span style="font-size: 0.7em;">Search</span>
+        </a>
+        <a href="{% url 'create_post' profile.pk %}" style="flex: 1; text-align: center; margin: 0 4px;">
           <button class="nav_create_btn" style="width: 100%; padding: 8px 12px; font-size: 0.9em;">+ Post</button>
         </a>
-        <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 8px;">
+        <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
           <span style="font-size: 1.2em;">👤</span><br>
-          <span style="font-size: 0.8em;">Profile</span>
+          <span style="font-size: 0.7em;">Profile</span>
         </a>
       </div>
     </div>

@@ -1,0 +1,109 @@
+<!--
+  File: mini_insta/templates/mini_insta/search_results.html
+  Author: Saksham Goel (saksham@bu.edu), 10/17/2025
+  Description: Search results page showing matching profiles and posts.
+-->
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<h1>Search Results</h1>
+
+<div style="margin: 16px 0;">
+  <a href="{% url 'search' profile.pk %}" class="btn btn_secondary">New Search</a>
+  <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary">Back to Profile</a>
+</div>
+
+<hr>
+
+<!-- Search Query Display -->
+<div style="margin: 16px 0; padding: 12px; background-color: #f3f4f6; border-radius: 8px;">
+  <p style="margin: 0; color: #374151;">
+    <strong>Searching for:</strong> "{{ query }}"
+  </p>
+</div>
+
+<!-- Profile Results -->
+<section style="margin: 24px 0;">
+  <h2>Profiles ({{ matching_profiles|length }})</h2>
+  
+  {% for profile_result in matching_profiles %}
+    <div class="card show_all_container" style="margin: 12px 0;">
+      <div>
+        <img src="{{ profile_result.profile_image_url }}" alt="Profile image" class="show_all_image">
+      </div>
+      <div class="show_all_text">
+        <h2><a href="{% url 'show_profile' profile_result.pk %}">@{{ profile_result.username }}</a></h2>
+        <h4>{{ profile_result.display_name }}</h4>
+        {% if profile_result.bio_text %}
+          <p style="margin: 4px 0 0 0; color: #6b7280;">{{ profile_result.bio_text }}</p>
+        {% endif %}
+        <p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 0.8em;">
+          Joined {{ profile_result.join_date|date:"F Y" }}
+        </p>
+      </div>
+    </div>
+  {% empty %}
+    <p style="color:#6b7280; padding: 20px; text-align: center; background-color: #f9fafb; border-radius: 8px;">
+      No profiles found matching "{{ query }}"
+    </p>
+  {% endfor %}
+</section>
+
+<hr>
+
+<!-- Post Results -->
+<section style="margin: 24px 0;">
+  <h2>Posts ({{ object_list|length }})</h2>
+  
+  {% for post in object_list %}
+    <div class="card" style="margin: 16px 0; padding: 16px;">
+      <!-- Post header with profile info -->
+      <div style="display: flex; align-items: center; margin-bottom: 12px;">
+        <img src="{{ post.profile.profile_image_url }}" alt="Profile image" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 12px;">
+        <div>
+          <h4 style="margin: 0;"><a href="{% url 'show_profile' post.profile.pk %}" style="text-decoration: none; color: inherit;">@{{ post.profile.username }}</a></h4>
+          <p style="margin: 0; color: #6b7280; font-size: 0.9em;">{{ post.timestamp|date:"M j, Y g:i a" }}</p>
+        </div>
+      </div>
+
+      <!-- Post content -->
+      {% if post.caption %}
+        <p style="margin: 0 0 12px 0;">{{ post.caption }}</p>
+      {% endif %}
+
+      <!-- First photo if available -->
+      {% with first_photo=post.get_all_photos.0 %}
+        {% if first_photo and first_photo.get_image_url %}
+          <img src="{{ first_photo.get_image_url }}" alt="Post image" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;">
+        {% endif %}
+      {% endwith %}
+
+      <!-- Like count -->
+      <p style="color:#6b7280; margin: 8px 0;">
+        <strong>{{ post.get_num_likes }}</strong> likes
+      </p>
+
+      <!-- Link to full post -->
+      <div style="margin-top: 12px;">
+        <a href="{% url 'show_post' post.pk %}" class="btn btn_primary" style="font-size: 0.9em; padding: 8px 16px;">View Post</a>
+      </div>
+    </div>
+  {% empty %}
+    <p style="color:#6b7280; padding: 20px; text-align: center; background-color: #f9fafb; border-radius: 8px;">
+      No posts found matching "{{ query }}"
+    </p>
+  {% endfor %}
+</section>
+
+<!-- No Results Message -->
+{% if matching_profiles|length == 0 and object_list|length == 0 %}
+  <div style="text-align: center; padding: 40px; background-color: #f9fafb; border-radius: 8px; margin: 24px 0;">
+    <h3 style="color: #6b7280; margin: 0 0 12px 0;">No Results Found</h3>
+    <p style="color: #6b7280; margin: 0 0 16px 0;">Try different search terms or check your spelling.</p>
+    <a href="{% url 'search' profile.pk %}" class="btn btn_primary">Try Again</a>
+  </div>
+{% endif %}
+
+{% endblock %}

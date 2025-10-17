@@ -15,12 +15,15 @@ class Profile(models.Model):
     join_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Return the string representation of the profile."""
         return f'Profile: {self.username}'
     
     def get_all_posts(self):
+        """Return all posts for this profile, ordered by most recent."""
         return Post.objects.filter(profile=self).order_by('-timestamp')
     
     def get_absolute_url(self):
+        """Return the absolute URL for this profile."""
         return reverse('show_profile', kwargs={'pk': self.pk})
     
     def get_followers(self):
@@ -51,9 +54,11 @@ class Post(models.Model):
     caption = models.TextField(blank=True)
 
     def __str__(self):
+        """Return the string representation of the post."""
         return f'Post by {self.profile.username} | caption: {self.caption[:15]}...'
     
     def get_all_photos(self):
+        """Return all photos for this post, ordered by most recent."""
         return Photo.objects.filter(post=self).order_by('-timestamp')
     
     def get_absolute_url(self):
@@ -79,6 +84,7 @@ class Photo(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Check if the photo is a URL or a file and return the string representation of the photo."""
         if self.image_url:
             return f'Photo (url) for post {self.post.caption[:15]}...'
         if self.image_file:
@@ -102,6 +108,7 @@ class Follow(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Return the string representation of the follow relationship."""
         return f'{self.follower_profile.display_name} follows {self.profile.display_name}'
 
 class Comment(models.Model):
@@ -121,5 +128,6 @@ class Like(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Return the string representation of the like."""
         return f'{self.profile.display_name} likes post by {self.post.profile.display_name}'
     
