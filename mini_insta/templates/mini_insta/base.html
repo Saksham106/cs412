@@ -21,9 +21,32 @@
           <h1 class="title">Mini Insta</h1>
         </a>
         <nav>
-          <a href="{% url 'show_all_profiles' %}">Show All</a>
+          <ul>
+            <li><a href="{% url 'show_all_profiles' %}">Show All</a></li>
+            
+            <!-- Authentication links -->
+            {% if request.user.is_authenticated %}
+              <li><a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+            {% endif %}
+          </ul>
+          <hr>
+          {% if request.user.is_authenticated %}
+            Logged in as: {{ request.user }}
+          {% else %}
+            Not logged in.
+          {% endif %}
         </nav>
       </header>
+
+      <!-- Hidden logout form -->
+      {% if request.user.is_authenticated %}
+        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+          {% csrf_token %}
+        </form>
+      {% endif %}
 
       <!-- Content block: child templates insert their page-specific content here -->
       {% block content %}
@@ -39,21 +62,21 @@
   </footer>
 
   <!-- Fixed bottom navigation banner -->
-  {% if profile %}
+  {% if request.user.is_authenticated %}
     <div style="position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;">
       <div style="display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto;">
-        <a href="{% url 'show_feed' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
+        <a href="{% url 'show_feed' %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
           <span style="font-size: 1.2em;">🏠</span><br>
           <span style="font-size: 0.7em;">Feed</span>
         </a>
-        <a href="{% url 'search' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
+        <a href="{% url 'search' %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
           <span style="font-size: 1.2em;">🔍</span><br>
           <span style="font-size: 0.7em;">Search</span>
         </a>
-        <a href="{% url 'create_post' profile.pk %}" style="flex: 1; text-align: center; margin: 0 4px;">
+        <a href="{% url 'create_post' %}" style="flex: 1; text-align: center; margin: 0 4px;">
           <button class="nav_create_btn" style="width: 100%; padding: 8px 12px; font-size: 0.9em;">+ Post</button>
         </a>
-        <a href="{% url 'show_profile' profile.pk %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
+        <a href="{% url 'my_profile' %}" class="btn btn_secondary" style="text-decoration: none; flex: 1; text-align: center; margin: 0 4px;">
           <span style="font-size: 1.2em;">👤</span><br>
           <span style="font-size: 0.7em;">Profile</span>
         </a>

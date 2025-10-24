@@ -1,0 +1,18 @@
+<!--
+  File: mini_insta/templates/mini_insta/register.html
+  Author: Saksham Goel (saksham@bu.edu), 10/23/2025
+  Description: Registration template for Mini Insta user accounts.
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h1>Register for an account</h1>
+<form class="site-form" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Register">
+</form>
+
+{% endblock %}

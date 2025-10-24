@@ -1,0 +1,35 @@
+<!--
+  File: mini_insta/templates/mini_insta/create_profile_form.html
+  Author: Saksham Goel (saksham@bu.edu), 10/24/2025
+  Description: Form for creating a new profile and user account in Mini Insta.
+-->
+
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+
+<!-- Create Profile Form -->
+<div class="card create_profile_form">
+    <h1>Create New Profile</h1>
+
+    <form action="{% url 'create_profile' %}" method="post">
+        {% csrf_token %}
+        
+        <h2>User Account Information</h2>
+        <table>
+            {{ user_form.as_table }}
+        </table>
+        
+        <h2>Profile Information</h2>
+        <table>
+            {{ profile_form.as_table }}
+        </table>
+        
+        <div class="form_buttons">
+            <button type="submit" class="btn btn_primary">Create Profile</button>
+            <a href="{% url 'show_all_profiles' %}" class="btn btn_secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

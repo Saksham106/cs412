@@ -20,10 +20,23 @@
 {% if post.caption %}<p>{{ post.caption }}</p>{% endif %}
 
 <!-- Post actions -->
-<div style="margin: 16px 0;">
-    <a href="{% url 'update_post' post.pk %}" class="btn btn_primary">Update Post</a>
-    <a href="{% url 'delete_post' post.pk %}" class="btn btn_secondary" style="background-color: #dc2626; color: white;">Delete Post</a>
-</div>
+{% if request.user.is_authenticated and request.user == post.profile.user %}
+  <div style="margin: 16px 0;">
+      <a href="{% url 'update_post' post.pk %}" class="btn btn_primary">Update Post</a>
+      <a href="{% url 'delete_post' post.pk %}" class="btn btn_secondary" style="background-color: #dc2626; color: white;">Delete Post</a>
+  </div>
+{% elif request.user.is_authenticated %}
+  <div style="margin: 16px 0;">
+    <form action="{% url 'like_post' post.pk %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn_primary">❤️ Like</button>
+    </form>
+    <form action="{% url 'unlike_post' post.pk %}" method="post" style="display: inline; margin-left: 8px;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn_secondary">💔 Unlike</button>
+    </form>
+  </div>
+{% endif %}
 
 <hr>
 

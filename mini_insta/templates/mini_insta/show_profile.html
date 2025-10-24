@@ -36,9 +36,22 @@
       <strong>{{ profile.get_all_posts.count }}</strong> Posts
     </p>
     
-    <div style="margin-top: 16px;">
-      <a href="{% url 'update_profile' profile.pk %}" class="btn btn_primary">Update Profile</a>
-    </div>
+    {% if request.user.is_authenticated and request.user == profile.user %}
+      <div style="margin-top: 16px;">
+        <a href="{% url 'update_profile' %}" class="btn btn_primary">Update Profile</a>
+      </div>
+    {% elif request.user.is_authenticated %}
+      <div style="margin-top: 16px;">
+        <form action="{% url 'follow_profile' profile.pk %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn_primary">Follow</button>
+        </form>
+        <form action="{% url 'unfollow_profile' profile.pk %}" method="post" style="display: inline; margin-left: 8px;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn_secondary">Unfollow</button>
+        </form>
+      </div>
+    {% endif %}
   </div>
   
 </main>
@@ -69,6 +82,12 @@
   {% empty %}
     <p style="color:#6b7280;">This profile hasn't posted yet.</p>
   {% endfor %}
+  
+  {% if request.user.is_authenticated and request.user == profile.user %}
+    <div style="margin-top: 16px; text-align: center;">
+      <a href="{% url 'create_post' %}" class="btn btn_primary">Create New Post</a>
+    </div>
+  {% endif %}
 </section>
 
 {% endblock %}

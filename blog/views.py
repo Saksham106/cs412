@@ -4,6 +4,9 @@ from .models import Article, Comment
 from .forms import CreateArticleForm, CreateCommentForm, UpdateArticleForm
 import random
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -27,12 +30,17 @@ class RandomArticleView(DetailView):
         articles = list(Article.objects.all())
         return random.choice(articles)
 
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     form_class = CreateArticleForm
     template_name = 'blog/create_article_form.html'
 
+    def get_login_url(self):
+        return reverse('login')
+
     def form_valid(self, form):
         # Save the article first
+        user = self.request.user
+        form.instance.author = user
         response = super().form_valid(form)
         return response
 
@@ -69,3 +77,11 @@ class DeleteCommentView(DeleteView):
         comment = Comment.objects.get(pk=pk)
         article = comment.article
         return reverse('article', kwargs={'pk': article.pk})
+    
+class UserRegistrationView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'blog/register.html'
+    model = User
+
+    def get_success_url(self):
+        return reverse('login')
