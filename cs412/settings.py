@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'restaurant',
     'blog',
     'mini_insta',
+    'marathon_analytics',
 ]
 
 MIDDLEWARE = [
