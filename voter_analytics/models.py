@@ -20,15 +20,13 @@ class Voter(models.Model):
 	apt_number = models.CharField(max_length=20, blank=True, null=True)
 	zip_code = models.CharField(max_length=12, blank=True, null=True)
 
-	# dates stored as simple text to keep the loader simple like the
-	# professor's example; this avoids parsing surprises.
 	date_of_birth = models.TextField(blank=True, null=True)
 	date_of_registration = models.TextField(blank=True, null=True)
 
 	party = models.CharField(max_length=2, blank=True, null=True)
 	precinct = models.CharField(max_length=10, blank=True, null=True)
 
-	# participation flags for recent elections (0/1 in the CSV)
+	# participation flags for recent elections
 	v20state = models.IntegerField(default=0)
 	v21town = models.IntegerField(default=0)
 	v21primary = models.IntegerField(default=0)

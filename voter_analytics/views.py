@@ -1,3 +1,96 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Voter
+import re
 
-# Create your views here.
+
+def _extract_year(dob_text):
+	"""Try to extract a 4-digit year from a text DOB field.
+
+	Returns int year or None.
+	"""
+	if not dob_text:
+		return None
+	m = re.search(r"(\d{4})", dob_text)
+	if m:
+		try:
+			return int(m.group(1))
+		except:
+			return None
+	return None
+
+
+class VoterListView(ListView):
+	model = Voter
+	template_name = 'voter_analytics/voters.html'
+	context_object_name = 'voters'
+	paginate_by = 100
+
+	def get_queryset(self):
+		qs = Voter.objects.all()
+
+		# apply simple filters that can be done in the DB
+		party = self.request.GET.get('party')
+		if party:
+			qs = qs.filter(party=party)
+
+		score = self.request.GET.get('voter_score')
+		if score and score.isdigit():
+			qs = qs.filter(voter_score=int(score))
+
+		# election flags: if present and value is 'on' filter v==1
+		elections = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
+		for e in elections:
+			if self.request.GET.get(e) == 'on':
+				qs = qs.filter(**{e: 1})
+
+		# date-of-birth year min/max need parsing of text field; do in Python
+		min_year = self.request.GET.get('min_dob')
+		max_year = self.request.GET.get('max_dob')
+
+		if min_year or max_year:
+			min_y = int(min_year) if (min_year and min_year.isdigit()) else None
+			max_y = int(max_year) if (max_year and max_year.isdigit()) else None
+
+			# convert queryset to list and filter by extracted year
+			filtered = []
+			for v in qs:
+				y = _extract_year(v.date_of_birth)
+				if y is None:
+					continue
+				if min_y and y < min_y:
+					continue
+				if max_y and y > max_y:
+					continue
+				filtered.append(v)
+			return filtered
+
+		return qs
+
+	def get_context_data(self, **kwargs):
+		ctx = super().get_context_data(**kwargs)
+
+		# choices for filters
+		ctx['parties'] = Voter.objects.values_list('party', flat=True).distinct().order_by('party')
+		# derive years from DOBs
+		years = set()
+		for dob in Voter.objects.values_list('date_of_birth', flat=True):
+			y = _extract_year(dob)
+			if y:
+				years.add(y)
+		ctx['years'] = sorted(years)
+
+		# voter_score choices
+		ctx['scores'] = Voter.objects.values_list('voter_score', flat=True).distinct().order_by('-voter_score')
+
+		# keep query params for navigation links
+		ctx['querystring'] = '&'.join([f"{k}={v}" for k, v in self.request.GET.items() if k != 'page'])
+
+		return ctx
+
+
+class VoterDetailView(DetailView):
+	model = Voter
+	template_name = 'voter_analytics/voter_detail.html'
+	context_object_name = 'voter'
+

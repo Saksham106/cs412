@@ -1,0 +1,29 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Voter: {{ voter.first_name }} {{ voter.last_name }}</h1>
+
+    <table>
+        <tr><th>Street</th><td>{{ voter.street_number }} {{ voter.street_name }} {% if voter.apt_number %} Apt {{ voter.apt_number }}{% endif %}</td></tr>
+        <tr><th>Zip</th><td>{{ voter.zip_code }}</td></tr>
+        <tr><th>Date of Birth</th><td>{{ voter.date_of_birth }}</td></tr>
+        <tr><th>Registration Date</th><td>{{ voter.date_of_registration }}</td></tr>
+        <tr><th>Party</th><td>{{ voter.party }}</td></tr>
+        <tr><th>Precinct</th><td>{{ voter.precinct }}</td></tr>
+        <tr><th>Voter Score</th><td>{{ voter.voter_score }}</td></tr>
+        <tr><th>v20state</th><td>{{ voter.v20state }}</td></tr>
+        <tr><th>v21town</th><td>{{ voter.v21town }}</td></tr>
+        <tr><th>v21primary</th><td>{{ voter.v21primary }}</td></tr>
+        <tr><th>v22general</th><td>{{ voter.v22general }}</td></tr>
+        <tr><th>v23town</th><td>{{ voter.v23town }}</td></tr>
+    </table>
+
+    {% comment %} Google Maps link - build an address string and urlencode it {% endcomment %}
+    {% with addr=voter.street_number|default_if_none:""|add:" "|add:voter.street_name|add:" "|add:voter.zip_code %}
+    <p><a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ addr|urlencode }}">Open in Google Maps</a></p>
+    {% endwith %}
+
+    <p><a href="{% url 'voters' %}">Back to list</a></p>
+</div>
+{% endblock %}
