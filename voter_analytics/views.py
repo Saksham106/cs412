@@ -1,5 +1,5 @@
 # File: voter_analytics/views.py
-# Author: Saksham Goel (saksham@bu.edu), 10/28/2025
+# Author: Saksham Goel (sakshamg@bu.edu), 10/28/2025
 # Description: Views for the voter_analytics application, including voters and graphs views.
 
 from django.shortcuts import render
