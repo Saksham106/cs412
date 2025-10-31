@@ -10,7 +10,7 @@ class Voter(models.Model):
 	Residential Address - Zip Code,Date of Birth,Date of Registration,
 	Party Affiliation,Precinct Number,v20state,v21town,v21primary,v22general,v23town,voter_score
 	'''
-
+	# identification
 	last_name = models.TextField()
 	first_name = models.TextField()
 
@@ -20,9 +20,11 @@ class Voter(models.Model):
 	apt_number = models.CharField(max_length=20, blank=True, null=True)
 	zip_code = models.CharField(max_length=12, blank=True, null=True)
 
+	# dates
 	date_of_birth = models.TextField(blank=True, null=True)
 	date_of_registration = models.TextField(blank=True, null=True)
 
+	# political info
 	party = models.CharField(max_length=2, blank=True, null=True)
 	precinct = models.CharField(max_length=10, blank=True, null=True)
 
@@ -79,11 +81,11 @@ def load_data():
 				date_of_registration=fields[8] or None,
 				party=fields[9] or None,
 				precinct=fields[10] or None,
-				v20state=int(fields[11]) if fields[11].isdigit() else 0,
-				v21town=int(fields[12]) if fields[12].isdigit() else 0,
-				v21primary=int(fields[13]) if fields[13].isdigit() else 0,
-				v22general=int(fields[14]) if fields[14].isdigit() else 0,
-				v23town=int(fields[15]) if fields[15].isdigit() else 0,
+				v20state=1 if fields[11].upper() == 'TRUE' else 0,
+				v21town=1 if fields[12].upper() == 'TRUE' else 0,
+				v21primary=1 if fields[13].upper() == 'TRUE' else 0,
+				v22general=1 if fields[14].upper() == 'TRUE' else 0,
+				v23town=1 if fields[15].upper() == 'TRUE' else 0,
 				voter_score=int(fields[16]) if len(fields) > 16 and fields[16].isdigit() else 0,
 			)
 			voter.save()

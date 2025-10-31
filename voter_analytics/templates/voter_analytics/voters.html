@@ -3,10 +3,8 @@
 {% block content %}
 <div class="container">
 
-    <h1>Voters</h1>
-
     <div class="row">
-        <h2>Filter</h2>
+        <h2>Filter Voters</h2>
         <form method="get">
             <table>
                 <tr>
@@ -71,35 +69,45 @@
         </form>
     </div>
 
+    <h1>Voters</h1>
+
+    <!-- navigation links for different pages of results -->
     <div class="row">
         {% if is_paginated %}
         <ul class="pagination">
             {% if page_obj.has_previous %}
-                <li><a href="?page={{ page_obj.previous_page_number }}&{{ querystring }}">Previous</a></li>
+                <li>
+                    <span><a href="?page={{ page_obj.previous_page_number }}&{{ querystring }}">Previous</a></span>
+                </li>
             {% endif %}
-                <li>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</li>
+                <li class="">
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </li>
             {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}&{{ querystring }}">Next</a></li>
+                <li>
+                    <span><a href="?page={{ page_obj.next_page_number }}&{{ querystring }}">Next</a></span>
+                </li>
             {% endif %}
         </ul>
         {% endif %}
     </div>
 
+    <!-- table of voters -->
     <div class="row">
         <table>
             <tr>
-                <th>Last</th>
-                <th>First</th>
-                <th>Street</th>
-                <th>DOB</th>
-                <th>Party</th>
-                <th>Score</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Street Address</th>
+                <th>Date of Birth</th>
+                <th>Party Affiliation</th>
+                <th>Voter Score</th>
             </tr>
             {% for v in voters %}
             <tr>
-                <td>{{ v.last_name }}</td>
+                <td><a href="{% url 'voter' v.pk %}">{{ v.last_name }}</a></td>
                 <td><a href="{% url 'voter' v.pk %}">{{ v.first_name }}</a></td>
-                <td>{{ v.street_number }} {{ v.street_name }} {% if v.apt_number %} Apt {{ v.apt_number }}{% endif %}</td>
+                <td>{{ v.street_number }} {{ v.street_name }}{% if v.apt_number %} Apt {{ v.apt_number }}{% endif %}</td>
                 <td>{{ v.date_of_birth }}</td>
                 <td>{{ v.party }}</td>
                 <td>{{ v.voter_score }}</td>

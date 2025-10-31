@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Voter Analytics</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="{% static 'voter_analytics_styles.css' %}">
     </head>
     <body>
         <header>
@@ -10,12 +10,13 @@
             <nav>
                 <ul>
                     <li><a href="{% url 'voters' %}">Voters</a></li>
+                    <li><a href="{% url 'graphs' %}">Graphs</a></li>
                 </ul>
             </nav>
         </header>
-
+    
     {% block content %}
-    {% endblock %}
-
+    {% endblock %}    
+  
     </body>
 </html>

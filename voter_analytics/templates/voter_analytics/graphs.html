@@ -1,0 +1,97 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+
+    <h1>Voter Analytics Graphs</h1>
+
+    <div class="row">
+        <h2>Filter</h2>
+        <form method="get">
+            <table>
+                <tr>
+                    <th>Party</th>
+                    <td>
+                        <select name="party">
+                            <option value="">(any)</option>
+                            {% for p in parties %}
+                                <option value="{{p}}" {% if request.GET.party == p %}selected{% endif %}>{{p}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Min DOB (year)</th>
+                    <td>
+                        <select name="min_dob">
+                            <option value="">(any)</option>
+                            {% for y in years %}
+                                <option value="{{y}}" {% if request.GET.min_dob == y|stringformat:"s" %}selected{% endif %}>{{y}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Max DOB (year)</th>
+                    <td>
+                        <select name="max_dob">
+                            <option value="">(any)</option>
+                            {% for y in years %}
+                                <option value="{{y}}" {% if request.GET.max_dob == y|stringformat:"s" %}selected{% endif %}>{{y}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Voter Score</th>
+                    <td>
+                        <select name="voter_score">
+                            <option value="">(any)</option>
+                            {% for s in scores %}
+                                <option value="{{s}}" {% if request.GET.voter_score == s|stringformat:"s" %}selected{% endif %}>{{s}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Elections</th>
+                    <td>
+                        <label><input type="checkbox" name="v20state" {% if request.GET.v20state == 'on' %}checked{% endif %}> v20state</label><br>
+                        <label><input type="checkbox" name="v21town" {% if request.GET.v21town == 'on' %}checked{% endif %}> v21town</label><br>
+                        <label><input type="checkbox" name="v21primary" {% if request.GET.v21primary == 'on' %}checked{% endif %}> v21primary</label><br>
+                        <label><input type="checkbox" name="v22general" {% if request.GET.v22general == 'on' %}checked{% endif %}> v22general</label><br>
+                        <label><input type="checkbox" name="v23town" {% if request.GET.v23town == 'on' %}checked{% endif %}> v23town</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Filter"></td>
+                    <td><a href="{% url 'graphs' %}">Reset</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Graph 1: Birth Year Distribution -->
+    <div class="row">
+        <h2>Distribution of Voters by Year of Birth</h2>
+        {{ graph_div_birth|safe }}
+    </div>
+
+    <!-- Graph 2: Party Affiliation Distribution -->
+    <div class="row">
+        <h2>Distribution of Voters by Party Affiliation</h2>
+        {{ graph_div_party|safe }}
+    </div>
+
+    <!-- Graph 3: Election Participation -->
+    <div class="row">
+        <h2>Voter Participation in Recent Elections</h2>
+        {{ graph_div_elections|safe }}
+    </div>
+
+    <div class="row">
+        <p><a href="{% url 'voters' %}">Back to Voter List</a></p>
+    </div>
+
+</div>
+{% endblock %}
