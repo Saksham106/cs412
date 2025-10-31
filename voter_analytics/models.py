@@ -1,3 +1,7 @@
+# File: voter_analytics/models.py
+# Author: Saksham Goel (saksham@bu.edu), 10/27/2025
+# Description: Models for the voter_analytics application, including Voter model.
+
 from django.db import models
 
 # Create your models here.
@@ -68,7 +72,8 @@ def load_data():
 		if len(fields) < 16:
 			print(f"Skipping malformed line (fields={len(fields)}): {line}")
 			continue
-
+		
+		# create a Voter object and save it to the database
 		try:
 			voter = Voter(
 				last_name=fields[1],

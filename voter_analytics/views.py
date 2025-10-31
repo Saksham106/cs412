@@ -1,3 +1,7 @@
+# File: voter_analytics/views.py
+# Author: Saksham Goel (saksham@bu.edu), 10/28/2025
+# Description: Views for the voter_analytics application, including voters and graphs views.
+
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Voter
@@ -24,12 +28,14 @@ def _extract_year(dob_text):
 
 
 class VoterListView(ListView):
+	"""View to display list of voters"""
 	model = Voter
 	template_name = 'voter_analytics/voters.html'
 	context_object_name = 'voters'
 	paginate_by = 100
 
 	def get_queryset(self):
+		"""Get the queryset of voters."""
 		qs = Voter.objects.all()
 
 		# apply simple filters that can be done in the DB
@@ -71,6 +77,9 @@ class VoterListView(ListView):
 		return qs
 
 	def get_context_data(self, **kwargs):
+		"""Get the context data for the voter list view. 
+		Includes choices for filters (party, year of birth, 
+		voter score) and query params for navigation links."""
 		ctx = super().get_context_data(**kwargs)
 
 		# choices for filters
@@ -93,6 +102,7 @@ class VoterListView(ListView):
 
 
 class VoterDetailView(DetailView):
+	"""View to display details of a single voter"""
 	model = Voter
 	template_name = 'voter_analytics/voter_detail.html'
 	context_object_name = 'voter'
@@ -162,6 +172,7 @@ class GraphsListView(ListView):
 		years = sorted(year_counts.keys())
 		counts = [year_counts[year] for year in years]
 		
+		# bar chart of voters by year of birth
 		fig_birth = go.Bar(x=years, y=counts)
 		graph_div_birth = plotly.offline.plot({
 			"data": [fig_birth],

@@ -1,7 +1,14 @@
+<!--
+  File: voter_analytics/templates/voter_analytics/voter_detail.html
+  Author: Saksham Goel (saksham@bu.edu), 10/28/2025
+  Description: Template for displaying details of a single voter.
+-->
+
 {% extends 'voter_analytics/base.html' %}
 
 {% block content %}
 <div class="container">
+    <!-- table of voter details -->
     <h1>Showing Voter: {{ voter.first_name }} {{ voter.last_name }}</h1>
     <table>
         <tr>
@@ -27,6 +34,7 @@
     </table>
 </div>
 
+<!-- table of election participation -->
 <div class="container">
     <div class="row">
         <h2>Election Participation</h2>
@@ -49,6 +57,7 @@
     </div>
 </div>
 
+<!-- Google Maps link and back to voter list link -->
 <div class="container">
     <div class="row">
         <p>

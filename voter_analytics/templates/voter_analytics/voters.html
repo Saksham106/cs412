@@ -1,8 +1,15 @@
+<!--
+  File: voter_analytics/templates/voter_analytics/voters.html
+  Author: Saksham Goel (saksham@bu.edu), 10/28/2025
+  Description: Template for displaying list of voters.
+-->
+
 {% extends 'voter_analytics/base.html' %}
 
 {% block content %}
 <div class="container">
 
+    <!-- filter form -->
     <div class="row">
         <h2>Filter Voters</h2>
         <form method="get">
@@ -117,4 +124,5 @@
     </div>
 
 </div>
+
 {% endblock %}
