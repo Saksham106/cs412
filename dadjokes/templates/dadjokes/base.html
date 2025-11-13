@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>Dad Jokes</title>
+    <link rel="stylesheet" href="{% static 'dadjokes_styles.css' %}">
   </head>
   <body>
     <header>
@@ -14,10 +15,11 @@
             <li><a href="{% url 'pictures' %}">All Pictures</a></li>
         </ul>
       </nav>
-      <hr>
     </header>
-    {% block content %}
-    {% endblock %}
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
   </body>
 </html>
 
