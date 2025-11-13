@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from rest_framework import generics
+from .serializers import *
+ 
 
 
 # Create your views here.
@@ -85,3 +88,15 @@ class UserRegistrationView(CreateView):
 
     def get_success_url(self):
         return reverse('login')
+
+class ArticleListAPIView(generics.ListCreateAPIView):
+  '''
+  An API view to return a listing of Articles 
+  and to create an Article.
+  '''
+  queryset = Article.objects.all()
+  serializer_class = ArticleSerializer
+ 
+class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Article.objects.all()
+  serializer_class = ArticleSerializer
