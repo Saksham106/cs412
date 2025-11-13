@@ -1,0 +1,23 @@
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+
+<h2>All Pictures</h2>
+
+{% if pictures %}
+    <ul>
+        {% for picture in pictures %}
+            <li>
+                <img src="{{ picture.image_url }}" alt="Picture by {{ picture.contributor }}" style="max-width: 300px;">
+                <p><em>by {{ picture.contributor }} on {{ picture.created }}</em></p>
+                <a href="{% url 'picture' picture.pk %}">View this picture</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No pictures available.</p>
+{% endif %}
+
+{% endblock %}
+

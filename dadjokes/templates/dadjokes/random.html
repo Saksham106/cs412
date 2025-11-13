@@ -1,0 +1,30 @@
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+
+<h2>Random Joke and Picture</h2>
+
+{% if joke %}
+    <div>
+        <h3>Joke</h3>
+        <p>{{ joke.text }}</p>
+        <p><em>by {{ joke.contributor }} on {{ joke.created }}</em></p>
+        <a href="{% url 'joke' joke.pk %}">View this joke</a>
+    </div>
+{% else %}
+    <p>No jokes available.</p>
+{% endif %}
+
+{% if picture %}
+    <div>
+        <h3>Picture</h3>
+        <img src="{{ picture.image_url }}" alt="Picture by {{ picture.contributor }}" style="max-width: 500px;">
+        <p><em>by {{ picture.contributor }} on {{ picture.created }}</em></p>
+        <a href="{% url 'picture' picture.pk %}">View this picture</a>
+    </div>
+{% else %}
+    <p>No pictures available.</p>
+{% endif %}
+
+{% endblock %}
+
