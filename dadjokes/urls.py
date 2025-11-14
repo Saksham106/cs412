@@ -1,3 +1,7 @@
+# File: dadjokes/urls.py
+# Author: Saksham Goel (sakshamg@bu.edu), 11/11/2025
+# Description: URL routes for the dadjokes application, including Web and REST API URLs.
+
 from django.urls import path
 from .views import *
 

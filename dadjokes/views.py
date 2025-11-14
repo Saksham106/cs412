@@ -1,3 +1,7 @@
+# File: dadjokes/views.py
+# Author: Saksham Goel (sakshamg@bu.edu), 11/11/2025
+# Description: Views for the dadjokes application
+
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import Joke, Picture

@@ -1,3 +1,7 @@
+# File: dadjokes/serializers.py
+# Author: Saksham Goel (sakshamg@bu.edu), 11/11/2025
+# Description: Serializers for the dadjokes application, including Joke and Picture.
+
 from rest_framework import serializers
 from .models import *
 

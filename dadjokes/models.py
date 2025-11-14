@@ -1,3 +1,7 @@
+# File: dadjokes/models.py
+# Author: Saksham Goel (sakshamg@bu.edu), 11/11/2025
+# Description: Models for the dadjokes application, including Joke and Picture.
+
 from django.db import models
 from django.urls import reverse
 
