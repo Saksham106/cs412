@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'voter_analytics',
     'rest_framework',
     'dadjokes',
+    'project',
 ]
 
 MIDDLEWARE = [
