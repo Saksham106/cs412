@@ -1,0 +1,22 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Upcoming Meals</h1>
+
+{% for meal in meals %}
+    <div>
+        <h2><a href="{% url 'meal_detail' meal.pk %}">{{ meal.title }}</a></h2>
+        <p>Host: {{ meal.host.display_name }}</p>
+        <p>Location: {{ meal.location.name }}</p>
+        <p>Time: {{ meal.start_time }}</p>
+        <p>Status: {{ meal.status }}</p>
+        <p>Max Guests: {{ meal.max_guests }}</p>
+        <hr>
+    </div>
+{% empty %}
+    <p>No meals available.</p>
+{% endfor %}
+
+{% endblock %}
+

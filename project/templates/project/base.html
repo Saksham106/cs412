@@ -1,0 +1,21 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Campus Meal Matching</title>
+  </head>
+  <body>
+    <header>
+      <h1>Campus Meal Matching</h1>
+      <nav>
+        <ul>
+            <li><a href="{% url 'meal_list' %}">All Meals</a></li>
+        </ul>
+        <hr>
+      </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>
+

@@ -1,3 +1,7 @@
+# File: project/models.py
+# Author: Saksham Goel (saksham@bu.edu), 11/23/2025
+# Description: Models for the final project application.
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse

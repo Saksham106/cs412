@@ -1,0 +1,23 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>{{ meal.title }}</h1>
+
+<div>
+    <p><strong>Host:</strong> {{ meal.host.display_name }}</p>
+    <p><strong>Location:</strong> {{ meal.location.name }} ({{ meal.location.location_type }})</p>
+    <p><strong>Start Time:</strong> {{ meal.start_time }}</p>
+    {% if meal.end_time %}
+    <p><strong>End Time:</strong> {{ meal.end_time }}</p>
+    {% endif %}
+    <p><strong>Description:</strong> {{ meal.description }}</p>
+    <p><strong>Max Guests:</strong> {{ meal.max_guests }}</p>
+    <p><strong>Accepted Guests:</strong> {{ meal.get_accepted_guests }}</p>
+    <p><strong>Status:</strong> {{ meal.status }}</p>
+    <p><strong>Created:</strong> {{ meal.created_at }}</p>
+</div>
+
+<p><a href="{% url 'meal_list' %}">Back to all meals</a></p>
+
+{% endblock %}
