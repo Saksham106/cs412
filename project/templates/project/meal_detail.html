@@ -77,7 +77,7 @@
     {% else %}
 
         <!-- Guest View -->
-        {% if meal.status == 'open' %}
+        {% if meal.status == 'open' and not has_requested %}
             <div class="action-buttons">
                 <a href="{% url 'create_join_request' meal.pk %}">Request to Join</a>
             </div>

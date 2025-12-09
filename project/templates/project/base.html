@@ -17,7 +17,7 @@
         <ul>
             <!-- Navigation Links -->
             <li><a href="{% url 'meal_list' %}">All Meals</a></li>
-            <li><a href="{% url 'meal_search' %}">Search Meals</a></li>
+            <!-- <li><a href="{% url 'meal_search' %}">Search Meals</a></li> -->
             {% if request.user.is_authenticated %}
             <li><a href="{% url 'create_meal' %}">Create Meal</a></li>
             <li><a href="{% url 'find_matches' %}">Find Matches</a></li>

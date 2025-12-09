@@ -100,10 +100,15 @@ class MealPostDetailView(DetailView):
                     meal=meal
                 ).values_list('reviewed_user_id', flat=True)
                 context['reviewed_user_ids'] = list(reviewed_user_ids)
+                
+                # Check if current user has already requested
+                context['has_requested'] = JoinRequest.objects.filter(meal=meal, requester=user_profile).exists()
             except UserProfile.DoesNotExist:
                 context['reviewed_user_ids'] = []
+                context['has_requested'] = False
         else:
             context['reviewed_user_ids'] = []
+            context['has_requested'] = False
             
         return context
 
