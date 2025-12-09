@@ -1,0 +1,22 @@
+<!--
+  File: project/templates/project/register.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/01/2025
+  Description: Registration template for the Campus Meal Matching project.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Register an Account</h1>
+
+<!-- Register Form -->
+<form action="{% url 'register' %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Register">
+</form>
+
+{% endblock %}

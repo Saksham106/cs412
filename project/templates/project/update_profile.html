@@ -1,0 +1,44 @@
+<!--
+  File: project/templates/project/update_profile.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/04/2025
+  Description: Form for updating the current user's profile, including displaying karma and reviews.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Update Your Profile</h1>
+
+<!-- Update Profile Form -->
+<form action="{% url 'update_profile' %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" name="submit" value="Update">
+</form>
+
+<form action="{% url 'meal_list' %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+<hr>
+
+<h2>Your Karma: {% if karma %}⭐ {{ karma }}{% else %}No reviews yet{% endif %}</h2>
+
+<!-- Reviews Received from other users -->
+<h3>Reviews Received</h3>
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="meal-card" style="border-left-color: #f39c12;">
+            <p><strong><a href="{% url 'profile_detail' review.reviewer.pk %}">{{ review.reviewer.display_name }}</a></strong> rated you <strong>{{ review.rating }}/5</strong></p>
+            <p><em>"{{ review.comment }}"</em></p>
+            <p style="font-size: 0.8em; color: #7f8c8d;">For meal: <a href="{% url 'meal_detail' review.meal.pk %}">{{ review.meal.title }}</a> on {{ review.created_at|date:"M d, Y" }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>You haven't received any reviews yet.</p>
+{% endif %}
+
+{% endblock %}

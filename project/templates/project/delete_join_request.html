@@ -1,0 +1,26 @@
+<!--
+  File: project/templates/project/delete_join_request.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/01/2025
+  Description: Form for deleting a join request for a meal.
+-->
+  
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<!-- Delete Join Request Confirmation -->
+<h3>Are you sure you want to cancel this join request?</h3>
+
+<p>Meal: {{ object.meal.title }}</p>
+<p>Your message: {{ object.message }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Cancel Request">
+</form>
+
+<form action="{% url 'meal_detail' object.meal.pk %}" method="GET">
+    <input type="submit" value="Keep Request">
+</form>
+
+{% endblock %}

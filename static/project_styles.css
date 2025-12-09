@@ -1,0 +1,668 @@
+/* File: static/project_styles.css
+   Author: Saksham Goel (sakshamg@bu.edu), 11/27/2025
+   Description: Stylesheet for the Campus Meal Matching project.
+*/
+
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 50%, #fff5e6 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+h1, h2, h3 {
+    color: #8b4513;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 4px solid #ff8c42;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.6em;
+    color: #a0522d;
+    margin-top: 30px;
+    font-weight: 500;
+}
+
+p {
+    color: #5c4033;
+    margin: 10px 0;
+}
+
+header {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+    color: white;
+}
+
+header h1 {
+    margin-top: 0;
+    color: white;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+    align-items: center;
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+    display: inline-block;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+nav form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+nav form button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    transition: all 0.3s;
+    margin: 0;
+    box-shadow: none;
+    display: inline-block;
+}
+
+nav form button:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #ffd4a3;
+    margin: 20px 0;
+}
+
+/* Content Container */
+.content-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+    border: 1px solid #ffe8cc;
+}
+
+/* Meal Cards */
+.meal-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fff8f0 100%);
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 12px;
+    border-left: 5px solid #ff8c42;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.2);
+    transition: all 0.3s;
+    border: 2px solid #ffe8cc;
+}
+
+.meal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.3);
+    border-left-color: #ff6b35;
+}
+
+.meal-card h2 {
+    margin-top: 0;
+    color: #8b4513;
+}
+
+.meal-card h2 a {
+    color: #8b4513;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.meal-card h2 a:hover {
+    color: #ff8c42;
+}
+
+.meal-card strong {
+    color: #a0522d;
+}
+
+/* Forms */
+form {
+    margin: 20px 0;
+}
+
+form table {
+    width: 100%;
+    margin: 15px 0;
+    background: #fff8f0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+form table td {
+    padding: 12px;
+    vertical-align: top;
+}
+
+form table td:first-child {
+    width: 150px;
+    font-weight: 600;
+    color: #8b4513;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 14px;
+    border: 2px solid #ffd4a3;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: white;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #ff8c42;
+    box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button,
+input[type="submit"] {
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin: 5px;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.3);
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 140, 66, 0.4);
+}
+
+button:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 140, 66, 0.3);
+}
+
+input[type="submit"].danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+}
+
+input[type="submit"].danger:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* Links */
+a {
+    color: #ff8c42;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #ff6b35;
+    text-decoration: underline;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.status-open {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+}
+
+.status-full {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    color: white;
+}
+
+.status-canceled {
+    background: linear-gradient(135deg, #7f8c8d 0%, #5d6d7e 100%);
+    color: white;
+}
+
+.status-pending {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+.status-accepted {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    color: white;
+}
+
+.status-declined {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.status-waitlisted {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+}
+
+/* Join Request Cards */
+.join-request-card {
+    background: linear-gradient(135deg, #fff8f0 0%, #ffe8cc 100%);
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border-left: 4px solid #ff8c42;
+    border: 2px solid #ffd4a3;
+    transition: all 0.3s;
+}
+
+.join-request-card:hover {
+    border-left-color: #ff6b35;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.2);
+}
+
+.join-request-card strong {
+    color: #8b4513;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin: 20px 0;
+}
+
+.action-buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.3);
+}
+
+.action-buttons a:hover {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 140, 66, 0.4);
+    text-decoration: none;
+}
+
+.action-buttons a.danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+}
+
+.action-buttons a.danger:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.action-buttons a.success {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.3);
+}
+
+.action-buttons a.success:hover {
+    background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+/* Search Details (Collapsible) */
+.search-details {
+    margin: 20px 0;
+}
+
+.search-summary {
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.3);
+    list-style: none;
+    user-select: none;
+}
+
+.search-summary::-webkit-details-marker {
+    display: none;
+}
+
+.search-summary::before {
+    content: '▶ ';
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.3s;
+}
+
+.search-details[open] .search-summary::before {
+    transform: rotate(90deg);
+}
+
+.search-summary:hover {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 140, 66, 0.4);
+}
+
+/* Search Form */
+.search-form {
+    background: linear-gradient(135deg, #fff8f0 0%, #ffe8cc 100%);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 25px 0;
+    border: 2px solid #ffd4a3;
+    box-shadow: 0 3px 10px rgba(255, 140, 66, 0.15);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 50px;
+    color: #a0522d;
+    background: #fff8f0;
+    border-radius: 12px;
+    border: 2px dashed #ffd4a3;
+}
+
+.empty-state p {
+    font-size: 1.2em;
+    color: #8b4513;
+}
+
+/* User Info */
+.user-info {
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Meal Detail Page Enhancements */
+.meal-detail-info {
+    background: #fff8f0;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ffd4a3;
+    margin: 20px 0;
+}
+
+.meal-detail-info p {
+    margin: 12px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #ffe8cc;
+}
+
+.meal-detail-info p:last-child {
+    border-bottom: none;
+}
+
+/* Profile Preferences */
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.preference-item {
+    background: #fff8f0;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #ffd4a3;
+    text-align: center;
+    color: #5c4033 !important; /* Ensure text is visible */
+}
+
+.preference-item .label {
+    /* Display inline to sit next to value */
+    font-size: 1.0em; 
+    color: #8b4513 !important; /* Ensure label is visible */
+    font-weight: 700; /* Bolder */
+    margin-right: 5px;
+    text-transform: none; /* Remove uppercase if user wants 'normal' text look */
+}
+
+.preference-item .value {
+    font-size: 1.0em;
+    color: #5c4033 !important;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    body {
+        margin: 0;
+        padding: 10px;
+    }
+
+    header {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .content-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    form table {
+        padding: 10px;
+    }
+
+    form table td:first-child {
+        width: 100px;
+        font-size: 0.9em;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="number"],
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    .meal-card {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+}
+
+/* Meal Chat */
+.meal-chat-container {
+    background: #fff8f0;
+    border: 2px solid #ffd4a3;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.my-message {
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+.my-message a {
+    color: white;
+    text-decoration: underline;
+}
+
+.other-message {
+    background: #e0e0e0;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.other-message a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.chat-message p {
+    margin: 0;
+    padding-right: 50px;
+    color: inherit;
+}
+
+.timestamp {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.other-message .timestamp {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.chat-form {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-form input[type="text"] {
+    flex-grow: 1;
+    max-width: none;
+    border-radius: 20px;
+    border: 1px solid #ffd4a3;
+}
+
+.chat-form button {
+    flex-shrink: 0;
+    border-radius: 20px;
+    margin: 0;
+}

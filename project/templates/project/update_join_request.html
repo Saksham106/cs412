@@ -1,0 +1,26 @@
+<!--
+  File: project/templates/project/update_join_request.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/01/2025
+  Description: Form for updating a join request for a meal.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Update Join Request</h1>
+
+<!-- Update Join Request Form -->
+<form action="{% url 'update_join_request' object.pk %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" name="submit" value="Update">
+</form>
+
+<form action="{% url 'meal_detail' object.meal.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+{% endblock %}

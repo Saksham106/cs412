@@ -1,0 +1,27 @@
+<!--
+  File: project/templates/project/delete_meal.html
+  Author: Saksham Goel (sakshamg@bu.edu), 11/27/2025
+  Description: Form for deleting a meal.
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<!-- Delete Meal Confirmation -->
+<h2>Are you sure you want to delete this meal?</h2>
+
+<div class="meal-card">
+    <p><strong>{{ object }}</strong></p>
+</div>
+
+<div class="action-buttons">
+    <form method="POST" style="display: inline;">
+        {% csrf_token %}
+        <input type="submit" value="Delete" class="danger">
+    </form>
+    <form action="{% url 'meal_detail' object.pk %}" method="GET" style="display: inline;">
+        <input type="submit" value="Cancel">
+    </form>
+</div>
+
+{% endblock %}

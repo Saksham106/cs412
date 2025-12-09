@@ -1,0 +1,26 @@
+<!--
+  File: project/templates/project/update_meal.html
+  Author: Saksham Goel (sakshamg@bu.edu), 11/27/2025
+  Description: Form for updating a meal.
+-->
+  
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Update Meal: {{ object.title }}</h1>
+
+<!-- Update Meal Form -->
+<form action="{% url 'update_meal' object.pk %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" name="submit" value="Update">
+</form>
+
+<form action="{% url 'meal_detail' object.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+{% endblock %}

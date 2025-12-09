@@ -1,0 +1,69 @@
+<!--
+  File: project/templates/project/meal_matches.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/06/2025
+  Description: Page for displaying compatible meal matches based on user preferences.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Find Your Meal Matches</h1>
+
+<p>Based on your preferences, here are users you might enjoy dining with:</p>
+
+<!-- Matches List -->
+{% if matches %}
+    {% for match in matches %}
+        <div class="meal-card">
+            <h2>
+                <a href="{% url 'profile_detail' match.profile.pk %}">{{ match.profile.display_name }}</a>
+                {% if match.karma %}
+                    <span style="font-size: 0.7em; color: #f39c12;" title="Reliability Rating">⭐ {{ match.karma }}</span>
+                {% endif %}
+            </h2>
+            <!-- User Information -->
+            <p><strong>Username:</strong> {{ match.profile.user.username }}</p>
+            {% if match.profile.major %}
+            <p><strong>Major:</strong> {{ match.profile.major }}</p>
+            {% endif %}
+            {% if match.profile.class_year %}
+            <p><strong>Class Year:</strong> {{ match.profile.class_year }}</p>
+            {% endif %}
+            <p><strong>Dietary Preference:</strong> {{ match.profile.dietary_preference }}</p>
+            <p><strong>Preferred Location:</strong> {% if match.profile.preferred_location %}{{ match.profile.preferred_location.name }}{% else %}Not specified{% endif %}</p>
+            <p><strong>Usual Meal Time:</strong> {{ match.profile.usual_meal_time }}</p>
+            <p><strong>Vibe:</strong> {{ match.profile.vibe }}</p>
+            <p><strong>Social Battery:</strong> {{ match.profile.social_battery }}</p>
+            <p><strong>Interest:</strong> {{ match.profile.interest }}</p>
+            <p><strong>Spice Tolerance:</strong> {{ match.profile.spice_tolerance }}</p>
+            {% if match.profile.bio %}
+            <p><strong>Bio:</strong> {{ match.profile.bio }}</p>
+            {% endif %}
+            <!-- Compatibility Score -->
+            <div style="margin: 15px 0; padding: 10px; background: #fff8f0; border-radius: 8px; border-left: 3px solid #ff8c42;">
+                <p><strong>Compatibility Score:</strong> <span style="color: #ff8c42; font-size: 1.2em; font-weight: bold;">{{ match.score }}/10</span></p>
+                <p><strong>Why you match:</strong></p>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                    {% for reason in match.reasons %}
+                    <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{% url 'create_meal' %}?match={{ match.profile.pk }}">Create Meal with {{ match.profile.display_name }}</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <!-- No Matches Found -->
+    <div class="empty-state">
+        <p>No matches found yet. Make sure your profile is complete with preferences!</p>
+        <p><a href="{% url 'update_profile' %}">Update Your Profile</a></p>
+    </div>
+{% endif %}
+
+<p><a href="{% url 'meal_list' %}">Back to all meals</a></p>
+
+{% endblock %}

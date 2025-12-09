@@ -1,21 +1,54 @@
+<!--
+  File: project/templates/project/base.html
+  Author: Saksham Goel (sakshamg@bu.edu), 11/25/2025
+  Description: Base layout template for the Campus Meal Matching project.
+-->
 {% load static %}
 
 <html>
   <head>
     <title>Campus Meal Matching</title>
+    <link rel="stylesheet" href="{% static 'project_styles.css' %}">
   </head>
   <body>
     <header>
-      <h1>Campus Meal Matching</h1>
+      <h1>Campus Meal Matching 🍽️</h1>
       <nav>
         <ul>
+            <!-- Navigation Links -->
             <li><a href="{% url 'meal_list' %}">All Meals</a></li>
+            <li><a href="{% url 'meal_search' %}">Search Meals</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'create_meal' %}">Create Meal</a></li>
+            <li><a href="{% url 'find_matches' %}">Find Matches</a></li>
+            <li><a href="{% url 'my_hosted_meals' %}">My Hosted Meals</a></li>
+            <li><a href="{% url 'my_joined_meals' %}">My Joined Meals</a></li>
+            <li><a href="{% url 'update_profile' %}">My Profile</a></li>
+            <li>
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
         </ul>
         <hr>
+        <!-- User Information -->
+        <div class="user-info">
+            {% if request.user.is_authenticated %}
+            Logged in as: {{ request.user }}
+            {% else %}
+            Not logged in.
+            {% endif %}
+        </div>
       </nav>
     </header>
-    {% block content %}
-    {% endblock %}
+    <div class="content-container">
+      {% block content %}
+      {% endblock %}
+    </div>
   </body>
 </html>
-

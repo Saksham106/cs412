@@ -1,0 +1,30 @@
+<!--
+  File: project/templates/project/login.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/01/2025
+  Description: Login template for the Campus Meal Matching project.
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<!-- Login Form -->
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Login">
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% else %}
+    <input type="hidden" name="next" value="{% url 'meal_list' %}">
+    {% endif %}
+</form>
+
+<hr>
+Don't have an account? 
+<a href="{% url 'register' %}">Register here</a>.
+
+{% endblock %}

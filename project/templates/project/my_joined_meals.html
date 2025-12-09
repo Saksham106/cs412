@@ -1,0 +1,30 @@
+<!--
+  File: project/templates/project/my_joined_meals.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/02/2025
+  Description: Page for displaying meals joined by the current user.
+-->
+
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h1>My Joined Meals</h1>
+
+<!-- Meals Joined List -->
+{% for meal in meals %}
+    <div class="meal-card">
+        <h2><a href="{% url 'meal_detail' meal.pk %}">{{ meal.title }}</a></h2>
+        <p><strong>Host:</strong> <a href="{% url 'profile_detail' meal.host.pk %}">{{ meal.host.display_name }}</a></p>
+        <p><strong>Location:</strong> {{ meal.location.name }}</p>
+        <p><strong>Time:</strong> {{ meal.start_time }}</p>
+        <p><strong>Status:</strong> <span class="status-badge status-{{ meal.status }}">{{ meal.status }}</span></p>
+    </div>
+{% empty %}
+    <div class="empty-state">
+        <p>You haven't joined any meals yet.</p>
+    </div>
+{% endfor %}
+
+<p><a href="{% url 'meal_list' %}">Back to all meals</a></p>
+
+{% endblock %}

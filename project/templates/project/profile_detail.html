@@ -1,0 +1,57 @@
+<!--
+  File: project/templates/project/profile_detail.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/04/2025
+  Description: Public profile page displaying user information, preferences, and reviews.
+-->
+  
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<!-- Profile Header -->
+<div class="profile-header">
+    <h1>{{ profile.display_name }}'s Profile</h1>
+    <div class="user-info">
+        <p><strong>Username:</strong> {{ profile.user.username }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    </div>
+
+    <!-- Preferences Grid -->
+    <div class="preferences-grid">
+        <div class="preference-item">
+            <span class="label">Social Battery:</span>
+            <span class="value">{{ profile.get_social_battery_display }}</span>
+        </div>
+        <div class="preference-item">
+            <span class="label">Campus Interest:</span>
+            <span class="value">{{ profile.get_interest_display }}</span>
+        </div>
+        <div class="preference-item">
+            <span class="label">Spice Tolerance:</span>
+            <span class="value">{{ profile.get_spice_tolerance_display }}</span>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Karma Score -->
+<h2>Karma Score: {% if karma %}⭐ {{ karma }}{% else %}No rating yet{% endif %}</h2>
+
+<!-- Reviews Received from other users -->
+<h3>Reviews Received</h3>
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="meal-card" style="border-left-color: #f39c12;">
+            <p><strong><a href="{% url 'profile_detail' review.reviewer.pk %}">{{ review.reviewer.display_name }}</a></strong> rated <strong>{{ review.rating }}/5</strong></p>
+            <p><em>"{{ review.comment }}"</em></p>
+            <p style="font-size: 0.8em; color: #7f8c8d;">For meal: <a href="{% url 'meal_detail' review.meal.pk %}">{{ review.meal.title }}</a> on {{ review.created_at|date:"M d, Y" }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>This user hasn't received any reviews yet.</p>
+{% endif %}
+
+<p style="margin-top: 20px;"><a href="javascript:history.back()">Back</a></p>
+
+{% endblock %}

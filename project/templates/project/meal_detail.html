@@ -1,22 +1,144 @@
+<!--
+  File: project/templates/project/meal_detail.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/02/2025
+  Description: Detail view for a meal, including join requests, chat, and reviews.
+-->
+
 {% extends "project/base.html" %}
 
 {% block content %}
 
 <h1>{{ meal.title }}</h1>
 
-<div>
-    <p><strong>Host:</strong> {{ meal.host.display_name }}</p>
+<!-- Meal Details -->
+<div class="meal-detail-info">
+    <p><strong>Host:</strong> <a href="{% url 'profile_detail' meal.host.pk %}">{{ meal.host.display_name }}</a></p>
     <p><strong>Location:</strong> {{ meal.location.name }} ({{ meal.location.location_type }})</p>
     <p><strong>Start Time:</strong> {{ meal.start_time }}</p>
-    {% if meal.end_time %}
-    <p><strong>End Time:</strong> {{ meal.end_time }}</p>
-    {% endif %}
     <p><strong>Description:</strong> {{ meal.description }}</p>
     <p><strong>Max Guests:</strong> {{ meal.max_guests }}</p>
     <p><strong>Accepted Guests:</strong> {{ meal.get_accepted_guests }}</p>
-    <p><strong>Status:</strong> {{ meal.status }}</p>
+    <p><strong>Status:</strong> <span class="status-badge status-{{ meal.status }}">{{ meal.status }}</span></p>
     <p><strong>Created:</strong> {{ meal.created_at }}</p>
+    <div style="margin-top: 15px;">
+        <a href="{% url 'download_calendar' meal.pk %}" style="background: #3498db; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 0.9em; display: inline-block;">
+            📅 Add to Calendar
+        </a>
+    </div>
 </div>
+
+{% if request.user.is_authenticated %}
+    {% if meal.host.user == request.user %}
+
+        <!-- Host View -->
+        <div class="action-buttons">
+            <a href="{% url 'update_meal' meal.pk %}">Edit Meal</a>
+            <a href="{% url 'delete_meal' meal.pk %}" class="danger">Delete Meal</a>
+        </div>
+        
+        <!-- Join Requests List -->
+        <h2>Join Requests</h2>
+        {% for join_request in join_requests %}
+            <div class="join-request-card">
+                <p><strong>Requester:</strong> <a href="{% url 'profile_detail' join_request.requester.pk %}">{{ join_request.requester.display_name }}</a></p>
+                <p><strong>Message:</strong> {{ join_request.message }}</p>
+                <p><strong>Status:</strong> <span class="status-badge status-{{ join_request.status }}">{{ join_request.status }}</span></p>
+                <p><strong>Requested:</strong> {{ join_request.created_at }}</p>
+                {% if join_request.status == 'pending' %}
+                    <div class="action-buttons">
+                        <a href="{% url 'accept_join_request' join_request.pk %}" class="success">Accept</a>
+                        <a href="{% url 'decline_join_request' join_request.pk %}" class="danger">Decline</a>
+                        <a href="{% url 'waitlist_join_request' join_request.pk %}">Waitlist</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No join requests yet.</p>
+        {% endfor %}
+        
+        <!-- Accepted Guests List -->
+        <h2>Accepted Guests</h2>
+        {% for join_request in join_requests %}
+            {% if join_request.status == 'accepted' %}
+                <div class="join-request-card">
+                    <p><strong><a href="{% url 'profile_detail' join_request.requester.pk %}">{{ join_request.requester.display_name }}</a></strong></p>
+                    {% if meal.status == 'completed' %}
+                        {% if join_request.requester.pk in reviewed_user_ids %}
+                            <span style="font-size: 0.8em; background: #27ae60; color: white; padding: 4px 8px; border-radius: 10px;">✅ Review Submitted</span>
+                        {% else %}
+                            <a href="{% url 'add_review' join_request.requester.pk %}?meal={{ meal.pk }}" style="font-size: 0.8em; background: #f39c12; color: white; padding: 4px 8px; border-radius: 10px; text-decoration: none;">⭐ Review Guest</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% empty %}
+            <p class="empty-state">No accepted guests yet.</p>
+        {% endfor %}
+    {% else %}
+
+        <!-- Guest View -->
+        {% if meal.status == 'open' %}
+            <div class="action-buttons">
+                <a href="{% url 'create_join_request' meal.pk %}">Request to Join</a>
+            </div>
+        {% endif %}
+        
+        {% if meal.status == 'completed' %}
+
+             <!-- Check if user was an accepted guest -->
+             {% for join_request in join_requests %}
+                {% if join_request.requester.user == request.user and join_request.status == 'accepted' %}
+                    <div style="margin: 15px 0;">
+                        {% if meal.host.pk in reviewed_user_ids %}
+                            <span style="background: #27ae60; color: white; padding: 8px 15px; border-radius: 20px;">✅ Review Submitted</span>
+                        {% else %}
+                            <a href="{% url 'add_review' meal.host.pk %}?meal={{ meal.pk }}" style="background: #f39c12; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none;">⭐ Review Host</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+             {% endfor %}
+        {% endif %}
+        
+        <!-- Your Join Requests List -->
+        {% for join_request in join_requests %}
+            {% if join_request.requester.user == request.user %}
+                <div class="join-request-card">
+                    <p><strong>Your request status:</strong> <span class="status-badge status-{{ join_request.status }}">{{ join_request.status }}</span></p>
+                    <div class="action-buttons">
+                        <a href="{% url 'update_join_request' join_request.pk %}">Update Request</a>
+                        <a href="{% url 'delete_join_request' join_request.pk %}" class="danger">Cancel Request</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <!-- Chat Section -->
+    {% if can_chat %}
+        <h2>Meal Chat 💬</h2>
+        <div class="meal-chat-container">
+            {% if chat_messages %}
+                {% for message in chat_messages %}
+                    <div class="chat-message {% if message.sender.user == request.user %}my-message{% else %}other-message{% endif %}">
+                        <p><strong><a href="{% url 'profile_detail' message.sender.pk %}">{{ message.sender.display_name }}</a></strong>: {{ message.message }}</p>
+                        <span class="timestamp">{{ message.timestamp|date:"D, H:i" }}</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #7f8c8d; font-style: italic;">No messages yet. Start the conversation!</p>
+            {% endif %}
+            
+            <form method="POST" class="chat-form">
+                {% csrf_token %}
+                {{ chat_form.message }}
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    {% endif %}
+
+{% else %}
+    <p><a href="{% url 'login' %}?next={% url 'meal_detail' meal.pk %}">Login to join this meal</a></p>
+{% endif %}
 
 <p><a href="{% url 'meal_list' %}">Back to all meals</a></p>
 

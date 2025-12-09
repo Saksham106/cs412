@@ -1,22 +1,78 @@
+<!--
+  File: project/templates/project/meal_list.html
+  Author: Saksham Goel (sakshamg@bu.edu), 11/27/2025
+  Description: List of all meals with search and filter options.
+-->
+  
 {% extends "project/base.html" %}
 
 {% block content %}
 
 <h1>Upcoming Meals</h1>
 
+{% if request.user.is_authenticated %}
+<p><a href="{% url 'create_meal' %}">Create a New Meal</a></p>
+{% endif %}
+
+<!-- Collapsible Search Form -->
+<details class="search-details" {% if request.GET.location or request.GET.status or request.GET.date_from or request.GET.date_to %}open{% endif %}>
+    <summary class="search-summary">Search & Filter</summary>
+    <form action="{% url 'meal_list' %}" method="GET" class="search-form">
+    <table>
+        <tr>
+            <td><label for="location">Location:</label></td>
+            <td>
+                <select name="location" id="location">
+                    <option value="">All Locations</option>
+                    {% for location in locations %}
+                        <option value="{{ location.pk }}" {% if request.GET.location == location.pk|stringformat:"s" %}selected{% endif %}>
+                            {{ location.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="status">Status:</label></td>
+            <td>
+                <select name="status" id="status">
+                    <option value="">All Statuses</option>
+                    {% for status_code, status_name in status_choices %}
+                        <option value="{{ status_code }}" {% if request.GET.status == status_code %}selected{% endif %}>
+                            {{ status_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="date_from">From Date:</label></td>
+            <td><input type="date" name="date_from" id="date_from" value="{{ request.GET.date_from }}"></td>
+        </tr>
+        <tr>
+            <td><label for="date_to">To Date:</label></td>
+            <td><input type="date" name="date_to" id="date_to" value="{{ request.GET.date_to }}"></td>
+        </tr>
+    </table>
+    <button type="submit">Search</button>
+    <a href="{% url 'meal_list' %}">Clear Filters</a>
+</form>
+</details>
+
+<!-- Meals List -->
 {% for meal in meals %}
-    <div>
+    <div class="meal-card">
         <h2><a href="{% url 'meal_detail' meal.pk %}">{{ meal.title }}</a></h2>
-        <p>Host: {{ meal.host.display_name }}</p>
-        <p>Location: {{ meal.location.name }}</p>
-        <p>Time: {{ meal.start_time }}</p>
-        <p>Status: {{ meal.status }}</p>
-        <p>Max Guests: {{ meal.max_guests }}</p>
-        <hr>
+        <p><strong>Host:</strong> <a href="{% url 'profile_detail' meal.host.pk %}">{{ meal.host.display_name }}</a></p>
+        <p><strong>Location:</strong> {{ meal.location.name }}</p>
+        <p><strong>Time:</strong> {{ meal.start_time }}</p>
+        <p><strong>Status:</strong> <span class="status-badge status-{{ meal.status }}">{{ meal.status }}</span></p>
+        <p><strong>Max Guests:</strong> {{ meal.max_guests }} | <strong>Accepted:</strong> {{ meal.get_accepted_guests }}</p>
     </div>
 {% empty %}
-    <p>No meals available.</p>
+    <div class="empty-state">
+        <p>No meals available.</p>
+    </div>
 {% endfor %}
 
 {% endblock %}
-

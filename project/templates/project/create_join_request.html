@@ -1,0 +1,25 @@
+<!--
+  File: project/templates/project/create_join_request.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/01/2025
+  Description: Form for creating a join request for a meal.
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<!-- Create Join Request Form -->
+<h1>Request to Join: {{ meal.title }}</h1>
+
+<form action="{% url 'create_join_request' meal.pk %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit">Send Request</button>
+</form>
+
+<form action="{% url 'meal_detail' meal.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+{% endblock %}

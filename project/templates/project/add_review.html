@@ -1,0 +1,24 @@
+<!--
+  File: project/templates/project/add_review.html
+  Author: Saksham Goel (sakshamg@bu.edu), 12/07/2025
+  Description: Form for adding a review for a user after a completed meal.
+-->
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<!-- Review Form -->
+<h1>Review <a href="{% url 'profile_detail' reviewed_user.pk %}">{{ reviewed_user.display_name }}</a></h1>
+<p>For meal: <strong>{{ meal.title }}</strong></p>
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit Review">
+</form>
+
+<p><a href="{% url 'meal_detail' meal.pk %}">Cancel</a></p>
+
+{% endblock %}
